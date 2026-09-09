@@ -71,8 +71,16 @@ function Hero() {
 
       marginTop: isMobile ? "0px" : "44px",
 
+      /*
+        MOBILE ONLY:
+        Reduced from 620px so the hero
+        does not become too vertically long.
+
+        DESKTOP/TABLET:
+        Completely unchanged.
+      */
       height: isMobile
-        ? "620px"
+        ? "520px"
         : isTablet
           ? "500px"
           : "565px",
@@ -119,17 +127,28 @@ function Hero() {
        CONTENT CONTAINER
     ========================= */
 
+/* =========================
+   CONTENT CONTAINER
+========================= */
+
 inner: {
   position: "relative",
   zIndex: 2,
 
-  width: "calc(100% - 188px)",
+  width: isMobile
+    ? "100%"
+    : "calc(100% - 188px)",
+
   maxWidth: "1510px",
   height: "100%",
 
-  margin: "0 auto",
+  margin: isMobile
+    ? "0"
+    : "0 auto",
 
-  padding: 0,
+  padding: isMobile
+    ? "0 0 0 34px"
+    : "0",
 
   display: "flex",
   flexDirection: "column",
@@ -145,19 +164,19 @@ inner: {
   boxSizing: "border-box",
 },
 
-    /* =========================
-       CONTENT WIDTH
-    ========================= */
+/* =========================
+   CONTENT WIDTH
+========================= */
 
-    content: {
-      width: isMobile
-        ? "100%"
-        : "460px",
+content: {
+  width: isMobile
+    ? "320px"
+    : "460px",
 
-      maxWidth: isMobile
-        ? "320px"
-        : "460px",
-    },
+  maxWidth: isMobile
+    ? "320px"
+    : "460px",
+},
 
     /* =========================
        HEADING
@@ -169,12 +188,6 @@ inner: {
 
       fontFamily: '"Playfair Display", serif',
 
-      /*
-        Increased from:
-        Desktop 56px
-        Tablet 48px
-        Mobile 40px
-      */
       fontSize: isMobile
         ? "42px"
         : isTablet
@@ -206,9 +219,6 @@ inner: {
 
       fontFamily: '"Jost", sans-serif',
 
-      /*
-        Increased font size
-      */
       fontSize: isMobile
         ? "17px"
         : isTablet
@@ -238,9 +248,6 @@ inner: {
 
       fontFamily: '"Jost", sans-serif',
 
-      /*
-        Increased from 14px
-      */
       fontSize: isMobile
         ? "15px"
         : "16px",
@@ -273,9 +280,6 @@ inner: {
 
       fontFamily: '"Jost", sans-serif',
 
-      /*
-        Increased from 14px
-      */
       fontSize: isMobile
         ? "15px"
         : "16px",
