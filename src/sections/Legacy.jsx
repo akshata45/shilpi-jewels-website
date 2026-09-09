@@ -342,11 +342,19 @@ function Legacy() {
 
           {/* MAIN HEADING */}
 
-          <h2 style={styles.heading}>
-            Our Legacy
-            <br />
-            Since <span style={styles.year}>1983</span>
-          </h2>
+<h2 style={styles.heading}>
+  Our Legacy
+  <br />
+  Since{" "}
+  <span
+    style={{
+      fontFamily: '"Jost", sans-serif',
+      fontWeight: 900,
+    }}
+  >
+    1983
+  </span>
+</h2>
 
           {/* SUB HEADING */}
 

@@ -254,9 +254,10 @@ function NewChapter() {
        18KT
     ========================= */
 
-    goldText: {
-      fontWeight: 700,
-    },
+goldText: {
+  fontFamily: '"Jost", sans-serif',
+  fontWeight: 700,
+},
 
     /* =========================
        SHORT DESCRIPTION
@@ -435,12 +436,12 @@ function NewChapter() {
 
           {/* INTRODUCTION */}
 
-          <h3 style={styles.introduction}>
-            Introducing{" "}
-            <span style={styles.goldText}>
-              18KT
-            </span>
-          </h3>
+<h3 style={styles.introduction}>
+  Introducing{" "}
+  <span style={styles.goldText}>
+    18KT
+  </span>
+</h3>
 
           {/* SHORT DESCRIPTION */}
 

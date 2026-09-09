@@ -280,7 +280,7 @@ function Craftsmanship() {
           ========================= */}
 
           <h2 style={styles.heading}>
-            The
+            The art of
             <br />
             Craftsmanship
           </h2>

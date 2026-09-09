@@ -119,38 +119,31 @@ function Hero() {
        CONTENT CONTAINER
     ========================= */
 
-    inner: {
-      position: "relative",
-      zIndex: 2,
+inner: {
+  position: "relative",
+  zIndex: 2,
 
-      width: "100%",
-      maxWidth: "1510px",
-      height: "100%",
+  width: "calc(100% - 188px)",
+  maxWidth: "1510px",
+  height: "100%",
 
-      margin: "0 auto",
+  margin: "0 auto",
 
-      /*
-        Reduced horizontal padding so
-        the hero content sits closer
-        to the left edge.
-      */
-      padding: isMobile
-        ? "0 24px"
-        : isTablet
-          ? "0 55px"
-          : "0 90px",
+  padding: 0,
 
-      display: "flex",
-      flexDirection: "column",
+  display: "flex",
+  flexDirection: "column",
 
-      justifyContent: isMobile
-        ? "flex-start"
-        : "center",
+  justifyContent: isMobile
+    ? "flex-start"
+    : "center",
 
-      paddingTop: isMobile
-        ? "72px"
-        : "0px",
-    },
+  paddingTop: isMobile
+    ? "72px"
+    : "0px",
+
+  boxSizing: "border-box",
+},
 
     /* =========================
        CONTENT WIDTH

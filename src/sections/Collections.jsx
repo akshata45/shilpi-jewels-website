@@ -23,6 +23,7 @@ function useMediaQuery(query) {
     const update = () => setMatches(media.matches);
 
     update();
+
     media.addEventListener("change", update);
 
     return () => media.removeEventListener("change", update);
@@ -50,6 +51,7 @@ function CollectionCard({
       onMouseLeave={() => setIsHovered(false)}
       style={{
         position: "relative",
+
         display: "block",
 
         width: "100%",
@@ -119,7 +121,7 @@ function CollectionCard({
 
           fontSize: "clamp(24px, 2.2vw, 32px)",
 
-          fontWeight: 400,
+          fontWeight: 500,
 
           lineHeight: 1.1,
 
@@ -155,13 +157,26 @@ function Collections() {
     section: {
       width: "100%",
 
-      marginTop: isMobile ? "40px" : "80px",
+      marginTop: isMobile
+        ? "40px"
+        : "50px",
 
+      /*
+        IMPORTANT:
+        Same horizontal setup as Hero.
+
+        Hero uses:
+        maxWidth: 1510px
+        padding: 0 15px
+
+        Collections now follows exactly
+        the same alignment.
+      */
       padding: isMobile
         ? "0 20px"
         : isTablet
-          ? "0 40px"
-          : "0 100px",
+          ? "0 15px"
+          : "0 15px",
 
       boxSizing: "border-box",
     },
@@ -172,7 +187,13 @@ function Collections() {
 
     container: {
       width: "100%",
+
+      /*
+        SAME AS HERO
+      */
       maxWidth: "1510px",
+
+      height: "auto",
 
       margin: "0 auto",
 
@@ -188,6 +209,8 @@ function Collections() {
 
       background:
         "linear-gradient(90deg, #ffffff 0%, #faf9ff 45%, #f3f1ff 100%)",
+
+      boxSizing: "border-box",
     },
 
     /* =========================
@@ -196,26 +219,40 @@ function Collections() {
 
     content: {
       display: "flex",
+
       flexDirection: "column",
+
       justifyContent: "center",
 
+      /*
+        LEFT ALIGNMENT
+
+        Hero content starts with 15px
+        inside the 1510px container.
+
+        Therefore Collections also starts
+        at the same 15px line.
+      */
       padding: isMobile
         ? "45px 25px"
         : isTablet
-          ? "50px 35px"
-          : "70px 60px",
+          ? "50px 25px 50px 15px"
+          : "70px 15px 70px 15px",
 
       boxSizing: "border-box",
+
+      minWidth: 0,
     },
+
+    /* =========================
+       HEADING
+    ========================= */
 
     heading: {
       margin: 0,
 
       fontFamily: '"Playfair Display", serif',
 
-      /*
-        Increased font size
-      */
       fontSize: isMobile
         ? "44px"
         : isTablet
@@ -231,16 +268,17 @@ function Collections() {
       color: "#272361",
     },
 
+    /* =========================
+       DESCRIPTION
+    ========================= */
+
     description: {
       margin: isMobile
-        ? "25px 0 0"
-        : "32px 0 0",
+        ? "20px 0 0"
+        : "15px 0 0",
 
       fontFamily: '"Jost", sans-serif',
 
-      /*
-        Increased font size
-      */
       fontSize: isMobile
         ? "17px"
         : "20px",
@@ -252,8 +290,13 @@ function Collections() {
       color: "#272361",
     },
 
+    /* =========================
+       LINK
+    ========================= */
+
     link: {
       display: "inline-flex",
+
       alignItems: "center",
 
       gap: "18px",
@@ -261,14 +304,11 @@ function Collections() {
       width: "fit-content",
 
       marginTop: isMobile
-        ? "28px"
-        : "38px",
+        ? "25px"
+        : "25px",
 
       fontFamily: '"Jost", sans-serif',
 
-      /*
-        Increased font size
-      */
       fontSize: isMobile
         ? "17px"
         : "19px",
@@ -281,6 +321,10 @@ function Collections() {
 
       textDecoration: "none",
     },
+
+    /* =========================
+       ARROW
+    ========================= */
 
     arrow: {
       fontSize: isMobile
@@ -318,6 +362,7 @@ function Collections() {
         : "610px",
 
       minWidth: 0,
+
       minHeight: 0,
 
       boxSizing: "border-box",
@@ -329,6 +374,7 @@ function Collections() {
 
     bombay: {
       gridColumn: "1",
+
       gridRow: "1 / span 2",
 
       aspectRatio: isMobile
@@ -338,6 +384,7 @@ function Collections() {
 
     antique: {
       gridColumn: "2",
+
       gridRow: "1",
 
       aspectRatio: isMobile
@@ -347,6 +394,7 @@ function Collections() {
 
     kolkata: {
       gridColumn: "3",
+
       gridRow: "1",
 
       aspectRatio: isMobile
@@ -356,6 +404,7 @@ function Collections() {
 
     temple: {
       gridColumn: "2",
+
       gridRow: "2",
 
       aspectRatio: isMobile
@@ -365,6 +414,7 @@ function Collections() {
 
     fusion: {
       gridColumn: "3",
+
       gridRow: "2",
 
       aspectRatio: isMobile
@@ -375,6 +425,7 @@ function Collections() {
 
   return (
     <section style={styles.section}>
+
       <div style={styles.container}>
 
         {/* =========================
@@ -382,6 +433,7 @@ function Collections() {
         ========================= */}
 
         <div style={styles.content}>
+
           <h2 style={styles.heading}>
             The
             <br />
@@ -412,6 +464,7 @@ function Collections() {
               ⟶
             </span>
           </a>
+
         </div>
 
         {/* =========================
@@ -463,6 +516,7 @@ function Collections() {
         </div>
 
       </div>
+
     </section>
   );
 }
