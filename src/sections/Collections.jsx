@@ -217,32 +217,27 @@ function Collections() {
        LEFT CONTENT
     ========================= */
 
-    content: {
-      display: "flex",
+/* =========================
+   LEFT CONTENT
+========================= */
 
-      flexDirection: "column",
+content: {
+  display: "flex",
 
-      justifyContent: "center",
+  flexDirection: "column",
 
-      /*
-        LEFT ALIGNMENT
+  justifyContent: "center",
 
-        Hero content starts with 15px
-        inside the 1510px container.
+  padding: isMobile
+    ? "45px 25px"
+    : isTablet
+      ? "50px 35px 50px 35px"
+      : "70px 15px 70px 15px",
 
-        Therefore Collections also starts
-        at the same 15px line.
-      */
-      padding: isMobile
-        ? "45px 25px"
-        : isTablet
-          ? "50px 25px 50px 15px"
-          : "70px 15px 70px 15px",
+  boxSizing: "border-box",
 
-      boxSizing: "border-box",
-
-      minWidth: 0,
-    },
+  minWidth: 0,
+},
 
     /* =========================
        HEADING
