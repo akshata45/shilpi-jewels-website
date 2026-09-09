@@ -39,6 +39,9 @@ function Craftsmanship() {
     "(min-width: 601px) and (max-width: 1200px)"
   );
 
+  // Hover state for image zoom
+  const [isImageHovered, setIsImageHovered] = useState(false);
+
   const styles = {
     /* =========================
        SECTION
@@ -128,7 +131,7 @@ function Craftsmanship() {
         ? "39px"
         : isTablet
           ? "40px"
-          : "43px",
+          : "46px",
 
       fontWeight: 400,
 
@@ -158,7 +161,7 @@ function Craftsmanship() {
         ? "21px"
         : isTablet
           ? "21px"
-          : "23px",
+          : "25px",
 
       fontWeight: 400,
 
@@ -191,10 +194,10 @@ function Craftsmanship() {
       fontFamily: '"Jost", sans-serif',
 
       fontSize: isMobile
-        ? "14px"
+        ? "16px"
         : isTablet
-          ? "13px"
-          : "13px",
+          ? "16px"
+          : "20px",
 
       fontWeight: 400,
 
@@ -227,6 +230,9 @@ function Craftsmanship() {
       backgroundColor: "#eee8dc",
 
       boxSizing: "border-box",
+
+      // Keeps the zoom smooth
+      cursor: "pointer",
     },
 
     /* =========================
@@ -247,6 +253,15 @@ function Craftsmanship() {
       aspectRatio: isMobile
         ? "3.2 / 1"
         : "auto",
+
+      // Image zoom effect
+      transform: isImageHovered
+        ? "scale(1.08)"
+        : "scale(1)",
+
+      transition: "transform 0.6s ease",
+
+      willChange: "transform",
     },
   };
 
@@ -265,7 +280,7 @@ function Craftsmanship() {
           ========================= */}
 
           <h2 style={styles.heading}>
-            The art of
+            The
             <br />
             Craftsmanship
           </h2>
@@ -298,7 +313,11 @@ function Craftsmanship() {
             RIGHT SINGLE COLLAGE IMAGE
         ========================= */}
 
-        <div style={styles.imageWrapper}>
+        <div
+          style={styles.imageWrapper}
+          onMouseEnter={() => setIsImageHovered(true)}
+          onMouseLeave={() => setIsImageHovered(false)}
+        >
           <img
             src={craftsmanshipImage}
             alt="Shilpi jewellery craftsmanship and skilled artisans"

@@ -160,7 +160,7 @@ function Legacy() {
         ? "39px"
         : isTablet
           ? "40px"
-          : "42px",
+          : "45px",
 
       fontWeight: 400,
 
@@ -194,7 +194,7 @@ function Legacy() {
         ? "21px"
         : isTablet
           ? "21px"
-          : "23px",
+          : "26px",
 
       fontWeight: 400,
 
@@ -223,10 +223,10 @@ function Legacy() {
       fontFamily: '"Jost", sans-serif',
 
       fontSize: isMobile
-        ? "14px"
+        ? "16px"
         : isTablet
-          ? "13px"
-          : "13px",
+          ? "18px"
+          : "20px",
 
       fontWeight: 400,
 
@@ -253,8 +253,8 @@ function Legacy() {
       fontFamily: '"Jost", sans-serif',
 
       fontSize: isMobile
-        ? "14px"
-        : "14px",
+        ? "16px"
+        : "18px",
 
       fontWeight: 400,
 
@@ -287,8 +287,8 @@ function Legacy() {
       fontFamily: '"Jost", sans-serif',
 
       fontSize: isMobile
-        ? "14px"
-        : "14px",
+        ? "16px"
+        : "18px",
 
       fontWeight: 400,
 

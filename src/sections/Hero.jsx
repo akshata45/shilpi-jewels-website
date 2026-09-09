@@ -69,19 +69,8 @@ function Hero() {
       position: "relative",
       width: "100%",
 
-      /*
-        Desktop reference:
-        Header bottom → 44px gap → Hero
-
-        Mobile:
-        No unnecessary top gap
-      */
       marginTop: isMobile ? "0px" : "44px",
 
-      /*
-        Desktop: exact reference proportion
-        Mobile: taller banner for readable content
-      */
       height: isMobile
         ? "620px"
         : isTablet
@@ -106,14 +95,6 @@ function Hero() {
 
       objectFit: "cover",
 
-      /*
-        Desktop:
-        Necklace remains on the right
-
-        Mobile:
-        Slightly shift image so the
-        necklace remains visible
-      */
       objectPosition: isMobile
         ? "68% center"
         : "center center",
@@ -129,15 +110,6 @@ function Hero() {
       position: "absolute",
       inset: 0,
 
-      /*
-        Desktop:
-        Strong cream on left →
-        transparent on right
-
-        Mobile:
-        Keep text readable without
-        washing out the entire image
-      */
       background: isMobile
         ? "linear-gradient(90deg, rgba(245,233,218,0.97) 0%, rgba(245,233,218,0.82) 42%, rgba(245,233,218,0.30) 75%, rgba(245,233,218,0) 100%)"
         : "linear-gradient(90deg, rgba(245,233,218,0.96) 0%, rgba(245,233,218,0.82) 22%, rgba(245,233,218,0.35) 40%, rgba(245,233,218,0) 58%)",
@@ -157,23 +129,20 @@ function Hero() {
 
       margin: "0 auto",
 
+      /*
+        Reduced horizontal padding so
+        the hero content sits closer
+        to the left edge.
+      */
       padding: isMobile
         ? "0 24px"
         : isTablet
-          ? "0 80px"
-          : "0 138px",
+          ? "0 55px"
+          : "0 90px",
 
       display: "flex",
       flexDirection: "column",
 
-      /*
-        Desktop:
-        Content vertically centered
-
-        Mobile:
-        Content starts from top
-        with controlled spacing
-      */
       justifyContent: isMobile
         ? "flex-start"
         : "center",
@@ -190,28 +159,34 @@ function Hero() {
     content: {
       width: isMobile
         ? "100%"
-        : "430px",
+        : "460px",
 
       maxWidth: isMobile
         ? "320px"
-        : "430px",
+        : "460px",
     },
 
     /* =========================
        HEADING
        PLAYFAIR DISPLAY REGULAR
-========================= */
+    ========================= */
 
     heading: {
       margin: 0,
 
       fontFamily: '"Playfair Display", serif',
 
+      /*
+        Increased from:
+        Desktop 56px
+        Tablet 48px
+        Mobile 40px
+      */
       fontSize: isMobile
-        ? "40px"
+        ? "42px"
         : isTablet
-          ? "48px"
-          : "56px",
+          ? "54px"
+          : "64px",
 
       fontWeight: 400,
 
@@ -238,11 +213,14 @@ function Hero() {
 
       fontFamily: '"Jost", sans-serif',
 
+      /*
+        Increased font size
+      */
       fontSize: isMobile
-        ? "16px"
+        ? "17px"
         : isTablet
-          ? "18px"
-          : "18px",
+          ? "20px"
+          : "20px",
 
       fontWeight: 400,
 
@@ -258,29 +236,32 @@ function Hero() {
        JOST REGULAR
     ========================= */
 
-link: {
-  display: "inline-block",
+    link: {
+      display: "inline-block",
 
-  marginTop: isMobile
-    ? "27px"
-    : "31px",
+      marginTop: isMobile
+        ? "27px"
+        : "31px",
 
-  fontFamily: '"Jost", sans-serif',
+      fontFamily: '"Jost", sans-serif',
 
-  fontSize: isMobile
-    ? "14px"
-    : "14px",
+      /*
+        Increased from 14px
+      */
+      fontSize: isMobile
+        ? "15px"
+        : "16px",
 
-  fontWeight: 400,
+      fontWeight: 400,
 
-  color: "#272361",
+      color: "#272361",
 
-  textDecoration: "underline",
+      textDecoration: "underline",
 
-  textUnderlineOffset: "5px",
+      textUnderlineOffset: "5px",
 
-  cursor: "pointer",
-},
+      cursor: "pointer",
+    },
 
     /* =========================
        COUNTER
@@ -299,7 +280,12 @@ link: {
 
       fontFamily: '"Jost", sans-serif',
 
-      fontSize: "14px",
+      /*
+        Increased from 14px
+      */
+      fontSize: isMobile
+        ? "15px"
+        : "16px",
 
       fontWeight: 400,
 

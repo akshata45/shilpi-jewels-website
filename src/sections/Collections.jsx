@@ -41,9 +41,13 @@ function CollectionCard({
   style,
   titleStyle,
 }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <a
       href="#collections"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         position: "relative",
         display: "block",
@@ -77,6 +81,13 @@ function CollectionCard({
           objectPosition: "center",
 
           display: "block",
+
+          transform: isHovered
+            ? "scale(1.06)"
+            : "scale(1)",
+
+          transition:
+            "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       />
 
@@ -105,8 +116,11 @@ function CollectionCard({
           margin: 0,
 
           fontFamily: '"Playfair Display", serif',
-          fontSize: "clamp(22px, 2vw, 30px)",
+
+          fontSize: "clamp(24px, 2.2vw, 32px)",
+
           fontWeight: 400,
+
           lineHeight: 1.1,
 
           textAlign: "right",
@@ -199,26 +213,37 @@ function Collections() {
 
       fontFamily: '"Playfair Display", serif',
 
+      /*
+        Increased font size
+      */
       fontSize: isMobile
-        ? "42px"
+        ? "44px"
         : isTablet
-          ? "44px"
-          : "52px",
+          ? "48px"
+          : "58px",
 
       fontWeight: 400,
 
       lineHeight: 1.18,
+
       letterSpacing: "-1.5px",
 
       color: "#272361",
     },
 
     description: {
-      margin: isMobile ? "25px 0 0" : "32px 0 0",
+      margin: isMobile
+        ? "25px 0 0"
+        : "32px 0 0",
 
       fontFamily: '"Jost", sans-serif',
 
-      fontSize: isMobile ? "16px" : "18px",
+      /*
+        Increased font size
+      */
+      fontSize: isMobile
+        ? "17px"
+        : "20px",
 
       fontWeight: 400,
 
@@ -235,11 +260,18 @@ function Collections() {
 
       width: "fit-content",
 
-      marginTop: isMobile ? "28px" : "38px",
+      marginTop: isMobile
+        ? "28px"
+        : "38px",
 
       fontFamily: '"Jost", sans-serif',
 
-      fontSize: isMobile ? "16px" : "18px",
+      /*
+        Increased font size
+      */
+      fontSize: isMobile
+        ? "17px"
+        : "19px",
 
       fontWeight: 400,
 
@@ -251,7 +283,9 @@ function Collections() {
     },
 
     arrow: {
-      fontSize: isMobile ? "24px" : "28px",
+      fontSize: isMobile
+        ? "26px"
+        : "30px",
 
       lineHeight: 1,
 
@@ -263,7 +297,9 @@ function Collections() {
     ========================= */
 
     imageGrid: {
-      display: isMobile ? "flex" : "grid",
+      display: isMobile
+        ? "flex"
+        : "grid",
 
       flexDirection: "column",
 
@@ -271,11 +307,15 @@ function Collections() {
 
       gridTemplateRows: "1fr 1fr",
 
-      gap: isMobile ? "10px" : "12px",
+      gap: isMobile
+        ? "10px"
+        : "12px",
 
       width: "100%",
 
-      height: isMobile ? "auto" : "610px",
+      height: isMobile
+        ? "auto"
+        : "610px",
 
       minWidth: 0,
       minHeight: 0,
@@ -291,35 +331,45 @@ function Collections() {
       gridColumn: "1",
       gridRow: "1 / span 2",
 
-      aspectRatio: isMobile ? "1 / 1" : "auto",
+      aspectRatio: isMobile
+        ? "1 / 1"
+        : "auto",
     },
 
     antique: {
       gridColumn: "2",
       gridRow: "1",
 
-      aspectRatio: isMobile ? "1 / 1" : "auto",
+      aspectRatio: isMobile
+        ? "1 / 1"
+        : "auto",
     },
 
     kolkata: {
       gridColumn: "3",
       gridRow: "1",
 
-      aspectRatio: isMobile ? "1 / 1" : "auto",
+      aspectRatio: isMobile
+        ? "1 / 1"
+        : "auto",
     },
 
     temple: {
       gridColumn: "2",
       gridRow: "2",
 
-      aspectRatio: isMobile ? "1 / 1" : "auto",
+      aspectRatio: isMobile
+        ? "1 / 1"
+        : "auto",
     },
 
     fusion: {
       gridColumn: "3",
       gridRow: "2",
 
-      aspectRatio: isMobile ? "1 / 1" : "auto",
+      aspectRatio: isMobile
+        ? "1 / 1"
+        : "auto",
     },
   };
 
@@ -350,10 +400,17 @@ function Collections() {
             and contemporary design.
           </p>
 
-          <a href="#collections" style={styles.link}>
-            <span>Explore All Collections</span>
+          <a
+            href="#collections"
+            style={styles.link}
+          >
+            <span>
+              Explore All Collections
+            </span>
 
-            <span style={styles.arrow}>⟶</span>
+            <span style={styles.arrow}>
+              ⟶
+            </span>
           </a>
         </div>
 
@@ -364,6 +421,7 @@ function Collections() {
         <div style={styles.imageGrid}>
 
           {/* LARGE LEFT IMAGE */}
+
           <CollectionCard
             image={bombayImage}
             label="Bombay"
@@ -371,6 +429,7 @@ function Collections() {
           />
 
           {/* TOP MIDDLE */}
+
           <CollectionCard
             image={antiqueImage}
             label="Antique"
@@ -378,6 +437,7 @@ function Collections() {
           />
 
           {/* TOP RIGHT */}
+
           <CollectionCard
             image={kolkataImage}
             label="Kolkata"
@@ -385,6 +445,7 @@ function Collections() {
           />
 
           {/* BOTTOM MIDDLE */}
+
           <CollectionCard
             image={templeImage}
             label="Temple"
@@ -392,6 +453,7 @@ function Collections() {
           />
 
           {/* BOTTOM RIGHT */}
+
           <CollectionCard
             image={fusionImage}
             label="Fusion"
