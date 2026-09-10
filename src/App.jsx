@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollButtons from "./components/ScrollButtons";
-import SEO from "./components/SEO";
 
 import Header from "./components/Header";
 
@@ -57,25 +56,6 @@ function Home() {
 
 function App() {
   return (
-    <>
-    <SEO
-        title="Jewellery Crafted Through Generations"
-        description="Discover Shilpi Jewels, crafted with 43 years of craftsmanship, trust and timeless artistry in traditional and contemporary Indian jewellery."
-        canonical="https://primeshilp.com/"
-        keywords="Shilpi Jewels, Indian jewellery, gold jewellery, traditional jewellery, contemporary jewellery, 22KT gold jewellery"
-      />
-
-      <Header />
-
-      <main>
-
-        <Hero />
-
-        <Collections />
-
-        {/* Other sections */}
-
-      </main>
     <BrowserRouter>
 
       <Routes>
@@ -128,7 +108,6 @@ function App() {
       </Routes>
 
     </BrowserRouter>
-    </>
   );
 }
 

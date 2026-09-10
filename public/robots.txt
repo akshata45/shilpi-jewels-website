@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://primeshilpi.com/sitemap.xml
