@@ -236,8 +236,8 @@ function NewChapter() {
       fontSize: isMobile
         ? "30px"
         : isTablet
-          ? "30px"
-          : "31px",
+          ? "40px"
+          : "43px",
 
       fontWeight: 400,
 
@@ -256,7 +256,7 @@ function NewChapter() {
 
 goldText: {
   fontFamily: '"Jost", sans-serif',
-  fontWeight: 700,
+  fontWeight: 900,
 },
 
     /* =========================

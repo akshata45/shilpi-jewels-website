@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import bombayImage from "../assets/images/bombay.jpg";
 import antiqueImage from "../assets/images/antique.jpg";
 import kolkataImage from "../assets/images/kolkata.jpg";

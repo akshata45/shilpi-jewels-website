@@ -220,8 +220,8 @@ function Footer() {
       alignItems: "center",
 
       gap: isMobile
-        ? "24px"
-        : "26px",
+        ? "15px"
+        : "18px",
 
       marginTop: isMobile
         ? "27px"
