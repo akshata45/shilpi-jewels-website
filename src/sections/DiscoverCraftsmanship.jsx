@@ -132,7 +132,7 @@ function DiscoverCraftsmanship() {
       fontFamily: '"Playfair Display", serif',
 
       fontSize: isMobile
-        ? "30px"
+        ? "25px"
         : isTablet
           ? "34px"
           : "48px",
