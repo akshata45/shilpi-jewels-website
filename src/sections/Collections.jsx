@@ -446,7 +446,7 @@ content: {
             and contemporary design.
           </p>
 
-          <a
+          {/* <a
             href="#collections"
             style={styles.link}
           >
@@ -457,7 +457,7 @@ content: {
             <span style={styles.arrow}>
               ⟶
             </span>
-          </a>
+          </a> */}
 
         </div>
 

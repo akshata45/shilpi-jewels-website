@@ -470,7 +470,7 @@ goldText: {
           {/* EXPLORE LINK */}
 
           <a
-            href="#18kt"
+            href="/18ktpage"
             style={styles.link}
           >
             <span>

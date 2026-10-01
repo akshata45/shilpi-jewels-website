@@ -710,19 +710,19 @@ function Footer() {
                 Home
               </a>
 
-              <a href="#collections" style={styles.quickLink}>
+              <a href="/collection" style={styles.quickLink}>
                 Collections
               </a>
 
-              <a href="#story" style={styles.quickLink}>
+              <a href="/missionpage" style={styles.quickLink}>
                 Our Story
               </a>
 
-              <a href="#craftsmanship" style={styles.quickLink}>
+              <a href="/craftsmanshippage" style={styles.quickLink}>
                 Craftsmanship
               </a>
 
-              <a href="#contact" style={styles.quickLink}>
+              <a href="/contactpage" style={styles.quickLink}>
                 Contact
               </a>
             </nav>

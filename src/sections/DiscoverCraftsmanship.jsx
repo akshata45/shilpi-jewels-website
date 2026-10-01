@@ -18,6 +18,8 @@ function useMediaQuery(query) {
   );
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const media = window.matchMedia(query);
 
     const update = () => setMatches(media.matches);
@@ -76,6 +78,52 @@ function DiscoverCraftsmanship() {
       alt: "Shilpi earrings",
     },
   ];
+
+  /* =========================
+     LIGHTBOX STATE
+  ========================= */
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  /* =========================
+     CLOSE WITH ESCAPE
+  ========================= */
+
+  useEffect(() => {
+    if (!selectedImage) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setSelectedImage(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedImage]);
+
+  /* =========================
+     PREVENT PAGE SCROLL
+  ========================= */
+
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedImage]);
+
+  /* =========================
+     STYLES
+  ========================= */
 
   const styles = {
     /* =========================
@@ -284,38 +332,156 @@ function DiscoverCraftsmanship() {
 
       justifySelf: "center",
     },
+
+    /* =========================
+       LIGHTBOX
+    ========================= */
+
+    lightbox: {
+      position: "fixed",
+
+      inset: 0,
+
+      zIndex: 9999,
+
+      display: "flex",
+
+      alignItems: "center",
+
+      justifyContent: "center",
+
+      padding: isMobile
+        ? "25px"
+        : "50px",
+
+      boxSizing: "border-box",
+
+      backgroundColor: "rgba(0, 0, 0, 0.82)",
+
+      cursor: "zoom-out",
+
+      animation:
+        "shilpiLightboxFadeIn 0.3s ease forwards",
+    },
+
+    /* =========================
+       LIGHTBOX IMAGE
+    ========================= */
+
+    lightboxImage: {
+      maxWidth: isMobile
+        ? "94vw"
+        : "90vw",
+
+      maxHeight: isMobile
+        ? "82vh"
+        : "88vh",
+
+      width: "auto",
+
+      height: "auto",
+
+      objectFit: "contain",
+
+      display: "block",
+
+      cursor: "zoom-out",
+
+      borderRadius: "2px",
+
+      boxShadow:
+        "0 25px 80px rgba(0,0,0,0.35)",
+
+      animation:
+        "shilpiLightboxImageIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+    },
   };
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
+    <>
+      <style>
+        {`
+          @keyframes shilpiLightboxFadeIn {
+            from {
+              opacity: 0;
+            }
 
-        {/* =========================
-            HEADING
-        ========================= */}
+            to {
+              opacity: 1;
+            }
+          }
 
-        <h2 style={styles.heading}>
-          Discover Our Craftsmanship
-        </h2>
+          @keyframes shilpiLightboxImageIn {
+            from {
+              opacity: 0;
+              transform: scale(0.94);
+            }
 
-        {/* =========================
-            IMAGE GRID
-        ========================= */}
+            to {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+        `}
+      </style>
 
-        <div style={styles.imageGrid}>
-          {craftsmanshipItems.map((item, index) => (
-            <CraftsmanshipCard
-              key={item.title}
-              item={item}
-              index={index}
-              isMobile={isMobile}
-              styles={styles}
-            />
-          ))}
+      <section style={styles.section}>
+        <div style={styles.container}>
+
+          {/* =========================
+              HEADING
+          ========================= */}
+
+          <h2 style={styles.heading}>
+            Discover Our Craftsmanship
+          </h2>
+
+          {/* =========================
+              IMAGE GRID
+          ========================= */}
+
+          <div style={styles.imageGrid}>
+            {craftsmanshipItems.map((item, index) => (
+              <CraftsmanshipCard
+                key={item.title}
+                item={item}
+                index={index}
+                isMobile={isMobile}
+                styles={styles}
+                onImageClick={() =>
+                  setSelectedImage(item)
+                }
+              />
+            ))}
+          </div>
+
         </div>
+      </section>
 
-      </div>
-    </section>
+      {/* =========================
+          IMAGE LIGHTBOX
+      ========================= */}
+
+      {selectedImage && (
+        <div
+          style={styles.lightbox}
+          onClick={() => setSelectedImage(null)}
+          role="button"
+          tabIndex={0}
+          aria-label="Close enlarged image"
+        >
+          <img
+            src={selectedImage.image}
+            alt={selectedImage.alt}
+            style={styles.lightboxImage}
+            onClick={(event) => {
+              event.stopPropagation();
+              setSelectedImage(null);
+            }}
+          />
+        </div>
+      )}
+    </>
   );
 }
 
@@ -328,6 +494,7 @@ function CraftsmanshipCard({
   index,
   isMobile,
   styles,
+  onImageClick,
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -350,8 +517,29 @@ function CraftsmanshipCard({
 
       <div
         style={styles.imageWrapper}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => {
+          if (!isMobile) {
+            setIsHovered(true);
+          }
+        }}
+        onMouseLeave={() => {
+          if (!isMobile) {
+            setIsHovered(false);
+          }
+        }}
+        onClick={onImageClick}
+        role="button"
+        tabIndex={0}
+        aria-label={`View ${item.title} image`}
+        onKeyDown={(event) => {
+          if (
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
+            event.preventDefault();
+            onImageClick();
+          }
+        }}
       >
         <img
           src={item.image}

@@ -1,15 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
 import logo from "../assets/images/shilpi-logo.png";
 
+
+/* =========================
+   NAVIGATION ITEMS
+========================= */
+
 const navItems = [
-  { label: "COLLECTION", href: "#collections" },
-  { label: "MISSION", href: "#legacy" },
-  { label: "CRAFTSMANSHIP", href: "#craftsmanship" },
-  { label: "18KT", href: "#18kt" },
-  { label: "20KT", href: "#20kt" },
-  { label: "22KT", href: "#22kt" },
-  { label: "CONTACT", href: "#contact" },
+  {
+    label: "COLLECTION",
+    href: "/collection",
+  },
+
+  {
+    label: "MISSION",
+    href: "/missionpage",
+  },
+
+  {
+    label: "CRAFTSMANSHIP",
+    href: "/craftsmanshippage",
+  },
+
+  {
+    label: "18KT",
+    href: "/18ktpage",
+  },
+
+  {
+    label: "20KT",
+    href: "/20ktpage",
+  },
+
+  {
+    label: "22KT",
+    href: "/22ktpage",
+  },
+
+  {
+    label: "CONTACT",
+    href: "/contactpage",
+  },
 ];
+
 
 /* =========================
    RESPONSIVE HOOK
@@ -23,34 +58,148 @@ function useMediaQuery(query) {
   );
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const media = window.matchMedia(query);
 
-    const update = () => setMatches(media.matches);
+    const update = () => {
+      setMatches(media.matches);
+    };
 
     update();
 
     media.addEventListener("change", update);
 
-    return () => media.removeEventListener("change", update);
+    return () => {
+      media.removeEventListener("change", update);
+    };
   }, [query]);
 
   return matches;
 }
+
 
 /* =========================
    HEADER COMPONENT
 ========================= */
 
 function Header() {
-  const isMobile = useMediaQuery("(max-width: 600px)");
+  const isMobile = useMediaQuery(
+    "(max-width: 600px)"
+  );
 
   const isTablet = useMediaQuery(
     "(min-width: 601px) and (max-width: 1200px)"
   );
 
+  const location = useLocation();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const menuRef = useRef(null);
+
+
+  /* =========================
+     CLOSE MENU ON ROUTE CHANGE
+  ========================= */
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+
+  /* =========================
+     CLOSE ON OUTSIDE CLICK
+  ========================= */
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleOutsideClick = (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener(
+      "mousedown",
+      handleOutsideClick
+    );
+
+    document.addEventListener(
+      "touchstart",
+      handleOutsideClick
+    );
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleOutsideClick
+      );
+
+      document.removeEventListener(
+        "touchstart",
+        handleOutsideClick
+      );
+    };
+  }, [menuOpen]);
+
+
+  /* =========================
+     ESCAPE KEY
+  ========================= */
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener(
+      "keydown",
+      handleEscape
+    );
+
+    return () => {
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      );
+    };
+  }, [menuOpen]);
+
+
+  /* =========================
+     PREVENT PAGE SCROLL
+  ========================= */
+
+  useEffect(() => {
+    if (menuOpen && (isMobile || isTablet)) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen, isMobile, isTablet]);
+
+
+  /* =========================
+     STYLES
+  ========================= */
+
   const styles = {
+
     /* =========================
-       FULL WIDTH HEADER
+       HEADER
     ========================= */
 
     header: {
@@ -58,20 +207,23 @@ function Header() {
 
       marginTop: "30px",
 
-      height: isMobile ? "80px" : "87px",
+      height: isMobile
+        ? "80px"
+        : "87px",
 
       background:
         "linear-gradient(90deg, #ffffff 0%, #ffffff 28%, #faf9ff 55%, #f3f1ff 100%)",
 
       position: "relative",
 
-      zIndex: 50,
+      zIndex: 1000,
+
+      boxSizing: "border-box",
     },
 
+
     /* =========================
-       HEADER INNER
-       SAME LEFT / RIGHT LINE
-       AS HERO SECTION
+       INNER
     ========================= */
 
     inner: {
@@ -98,8 +250,9 @@ function Header() {
       boxSizing: "border-box",
     },
 
+
     /* =========================
-       LOGO
+       LOGO LINK
     ========================= */
 
     logoLink: {
@@ -116,7 +269,14 @@ function Header() {
       alignItems: "center",
 
       textDecoration: "none",
+
+      cursor: "pointer",
     },
+
+
+    /* =========================
+       LOGO
+    ========================= */
 
     logo: {
       width: "100%",
@@ -127,6 +287,7 @@ function Header() {
 
       objectFit: "contain",
     },
+
 
     /* =========================
        RIGHT SIDE
@@ -142,8 +303,9 @@ function Header() {
       flexShrink: 0,
     },
 
+
     /* =========================
-       NAVIGATION
+       DESKTOP NAVIGATION
     ========================= */
 
     nav: {
@@ -158,6 +320,11 @@ function Header() {
 
       margin: 0,
     },
+
+
+    /* =========================
+       NAVIGATION LINK
+    ========================= */
 
     navLink: {
       whiteSpace: "nowrap",
@@ -175,45 +342,31 @@ function Header() {
       textDecoration: "none",
 
       cursor: "pointer",
+
+      transition:
+        "color 0.25s ease, opacity 0.25s ease",
     },
 
-    /* =========================
-       ICONS
-    ========================= */
-
-    icons: {
-      display: "flex",
-
-      alignItems: "center",
-
-      gap: isMobile
-        ? "15px"
-        : "20px",
-
-      marginLeft:
-        isMobile || isTablet
-          ? "0"
-          : "38px",
-
-      color: "#555555",
-    },
 
     /* =========================
-       ICON BUTTON
+       MOBILE MENU BUTTON
     ========================= */
 
-    iconButton: {
+    menuButton: {
       width: isMobile
-        ? "22px"
-        : "26px",
+        ? "25px"
+        : "28px",
 
       height: isMobile
-        ? "22px"
-        : "26px",
+        ? "25px"
+        : "28px",
 
       padding: 0,
 
-      display: "flex",
+      display:
+        isMobile || isTablet
+          ? "flex"
+          : "none",
 
       alignItems: "center",
 
@@ -226,20 +379,252 @@ function Header() {
       border: "none",
 
       cursor: "pointer",
+
+      position: "relative",
+
+      zIndex: 1100,
     },
 
+
     /* =========================
-       SVG
+       MENU SVG
     ========================= */
 
-    svg: {
+    menuSvg: {
       width: isMobile
-        ? "20px"
-        : "22px",
+        ? "22px"
+        : "24px",
 
       height: isMobile
-        ? "20px"
-        : "22px",
+        ? "22px"
+        : "24px",
+
+      fill: "none",
+
+      stroke: "currentColor",
+
+      strokeWidth: 1.5,
+
+      strokeLinecap: "round",
+
+      strokeLinejoin: "round",
+    },
+
+
+    /* =========================
+       MOBILE OVERLAY
+    ========================= */
+
+    mobileOverlay: {
+      position: "fixed",
+
+      inset: 0,
+
+      background:
+        "rgba(20, 18, 40, 0.38)",
+
+      zIndex: 999,
+
+      animation:
+        "shilpiMenuOverlayIn 0.25s ease forwards",
+    },
+
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    mobileMenu: {
+      position: "fixed",
+
+      top: 0,
+
+      right: 0,
+
+      width: isMobile
+        ? "82%"
+        : "390px",
+
+      maxWidth: "390px",
+
+      height: "100vh",
+
+      background: "#ffffff",
+
+      zIndex: 1000,
+
+      boxSizing: "border-box",
+
+      padding:
+        isMobile
+          ? "95px 30px 35px"
+          : "105px 40px 40px",
+
+      boxShadow:
+        "-12px 0 35px rgba(39,37,90,0.10)",
+
+      overflowY: "auto",
+
+      animation:
+        "shilpiMenuSlideIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+    },
+
+
+    /* =========================
+       MOBILE MENU TITLE
+    ========================= */
+
+    mobileMenuTitle: {
+      margin: 0,
+
+      fontFamily:
+        '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+
+      fontSize: isMobile
+        ? "28px"
+        : "32px",
+
+      lineHeight: 1.15,
+
+      fontWeight: 400,
+
+      color: "#292566",
+    },
+
+
+    /* =========================
+       MOBILE GOLD LINE
+    ========================= */
+
+    mobileMenuLine: {
+      width: "45px",
+
+      height: "1px",
+
+      background: "#b69659",
+
+      margin:
+        isMobile
+          ? "17px 0 30px"
+          : "18px 0 35px",
+    },
+
+
+    /* =========================
+       MOBILE NAVIGATION
+    ========================= */
+
+    mobileNav: {
+      display: "flex",
+
+      flexDirection: "column",
+
+      width: "100%",
+    },
+
+
+    /* =========================
+       MOBILE NAV LINK
+    ========================= */
+
+    mobileNavLink: {
+      width: "100%",
+
+      padding:
+        isMobile
+          ? "17px 0"
+          : "19px 0",
+
+      display: "flex",
+
+      alignItems: "center",
+
+      justifyContent: "space-between",
+
+      borderBottom:
+        "1px solid rgba(39,37,90,0.10)",
+
+      fontFamily: '"Jost", sans-serif',
+
+      fontSize: isMobile
+        ? "14px"
+        : "15px",
+
+      letterSpacing: "1.2px",
+
+      fontWeight: 400,
+
+      color: "#292566",
+
+      textDecoration: "none",
+
+      boxSizing: "border-box",
+
+      transition:
+        "color 0.2s ease, padding-left 0.2s ease",
+    },
+
+
+    /* =========================
+       MOBILE ARROW
+    ========================= */
+
+    mobileArrow: {
+      fontFamily: '"Jost", sans-serif',
+
+      fontSize: "18px",
+
+      color: "#a18143",
+
+      lineHeight: 1,
+    },
+
+
+    /* =========================
+       MOBILE CLOSE
+    ========================= */
+
+    mobileCloseButton: {
+      position: "absolute",
+
+      top: isMobile
+        ? "28px"
+        : "35px",
+
+      right: isMobile
+        ? "25px"
+        : "30px",
+
+      width: "30px",
+
+      height: "30px",
+
+      padding: 0,
+
+      border: "none",
+
+      background: "transparent",
+
+      display: "flex",
+
+      alignItems: "center",
+
+      justifyContent: "center",
+
+      cursor: "pointer",
+
+      color: "#555555",
+    },
+
+
+    /* =========================
+       CLOSE SVG
+    ========================= */
+
+    closeSvg: {
+      width: "21px",
+
+      height: "21px",
 
       fill: "none",
 
@@ -253,165 +638,227 @@ function Header() {
     },
   };
 
+
+  /* =========================
+     RETURN
+  ========================= */
+
   return (
-    <header style={styles.header}>
-      <div style={styles.inner}>
+    <>
+      <header style={styles.header}>
 
-        {/* =========================
-            LOGO
-        ========================= */}
-
-        <a
-          href="/"
-          style={styles.logoLink}
-          aria-label="Shilpi Jewels Home"
-        >
-          <img
-            src={logo}
-            alt="Shilpi Jewels"
-            style={styles.logo}
-          />
-        </a>
-
-        {/* =========================
-            RIGHT SIDE
-        ========================= */}
-
-        <div style={styles.rightSide}>
+        <div style={styles.inner}>
 
           {/* =========================
-              NAVIGATION
+              LOGO
           ========================= */}
 
-          <nav style={styles.nav}>
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                style={styles.navLink}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+          <Link
+            to="/"
+            style={styles.logoLink}
+            aria-label="Shilpi Jewels Home"
+            onClick={() => setMenuOpen(false)}
+          >
+            <img
+              src={logo}
+              alt="Shilpi Jewels"
+              style={styles.logo}
+            />
+          </Link>
+
 
           {/* =========================
-              ICONS
+              RIGHT SIDE
           ========================= */}
 
-          <div style={styles.icons}>
+          <div style={styles.rightSide}>
 
             {/* =========================
-                ACCOUNT
+                DESKTOP NAVIGATION
+            ========================= */}
+
+            <nav style={styles.nav}>
+
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  style={styles.navLink}
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+            </nav>
+
+
+            {/* =========================
+                MOBILE / TABLET MENU
             ========================= */}
 
             <button
               type="button"
-              aria-label="Account"
-              style={styles.iconButton}
+              aria-label={
+                menuOpen
+                  ? "Close navigation menu"
+                  : "Open navigation menu"
+              }
+              aria-expanded={menuOpen}
+              style={styles.menuButton}
+              onClick={() =>
+                setMenuOpen((previous) => !previous)
+              }
             >
-              <svg
-                viewBox="0 0 24 24"
-                style={styles.svg}
-              >
-                <circle
-                  cx="12"
-                  cy="7.5"
-                  r="3.5"
-                />
 
-                <path
-                  d="M4.5 20C5.2 15.8 8 13.5 12 13.5C16 13.5 18.8 15.8 19.5 20"
-                />
-              </svg>
-            </button>
+              {menuOpen ? (
+                <svg
+                  viewBox="0 0 24 24"
+                  style={styles.closeSvg}
+                >
+                  <path d="M5 5L19 19" />
+                  <path d="M19 5L5 19" />
+                </svg>
+              ) : (
+                <svg
+                  viewBox="0 0 24 24"
+                  style={styles.menuSvg}
+                >
+                  <path d="M4 7H20" />
+                  <path d="M4 12H20" />
+                  <path d="M4 17H20" />
+                </svg>
+              )}
 
-            {/* =========================
-                WISHLIST
-            ========================= */}
-
-            <button
-              type="button"
-              aria-label="Wishlist"
-              style={styles.iconButton}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                style={styles.svg}
-              >
-                <path
-                  d="M20.8 8.8C20.8 13.2 12 19.5 12 19.5C12 19.5 3.2 13.2 3.2 8.8C3.2 6.3 4.9 4.5 7.2 4.5C9.1 4.5 10.7 5.7 12 7.2C13.3 5.7 14.9 4.5 16.8 4.5C19.1 4.5 20.8 6.3 20.8 8.8Z"
-                />
-              </svg>
-            </button>
-
-            {/* =========================
-                SEARCH
-            ========================= */}
-
-            <button
-              type="button"
-              aria-label="Search"
-              style={styles.iconButton}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                style={styles.svg}
-              >
-                <circle
-                  cx="10.8"
-                  cy="10.8"
-                  r="6.8"
-                />
-
-                <path d="M16 16L21 21" />
-              </svg>
-            </button>
-
-            {/* =========================
-                SHOPPING BAG
-            ========================= */}
-
-            <button
-              type="button"
-              aria-label="Shopping bag"
-              style={styles.iconButton}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                style={styles.svg}
-              >
-                <path d="M5 8.5H19L20 20H4L5 8.5Z" />
-
-                <path
-                  d="M8.5 9V6.5C8.5 4.6 10 3 12 3C14 3 15.5 4.6 15.5 6.5V9"
-                />
-              </svg>
-            </button>
-
-            {/* =========================
-                MENU
-            ========================= */}
-
-            <button
-              type="button"
-              aria-label="Menu"
-              style={styles.iconButton}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                style={styles.svg}
-              >
-                <path d="M4 7H20M4 12H20M4 17H20" />
-              </svg>
             </button>
 
           </div>
 
         </div>
 
-      </div>
-    </header>
+      </header>
+
+
+      {/* =========================
+          MOBILE MENU
+      ========================= */}
+
+      {menuOpen && (
+        <>
+          {/* =========================
+              OUTSIDE OVERLAY
+          ========================= */}
+
+          <div
+            style={styles.mobileOverlay}
+            onClick={() => setMenuOpen(false)}
+            aria-hidden="true"
+          />
+
+
+          {/* =========================
+              MENU PANEL
+          ========================= */}
+
+          <div
+            ref={menuRef}
+            style={styles.mobileMenu}
+          >
+
+            {/* =========================
+                CLOSE BUTTON
+            ========================= */}
+
+            <button
+              type="button"
+              aria-label="Close navigation menu"
+              style={styles.mobileCloseButton}
+              onClick={() => setMenuOpen(false)}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                style={styles.closeSvg}
+              >
+                <path d="M5 5L19 19" />
+                <path d="M19 5L5 19" />
+              </svg>
+            </button>
+
+
+            {/* =========================
+                MENU TITLE
+            ========================= */}
+
+            <h2 style={styles.mobileMenuTitle}>
+              Explore Shilpi
+            </h2>
+
+            <div style={styles.mobileMenuLine} />
+
+
+            {/* =========================
+                MOBILE NAVIGATION
+            ========================= */}
+
+            <nav style={styles.mobileNav}>
+
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  style={styles.mobileNavLink}
+                  onClick={() =>
+                    setMenuOpen(false)
+                  }
+                >
+
+                  <span>
+                    {item.label}
+                  </span>
+
+                  <span style={styles.mobileArrow}>
+                    →
+                  </span>
+
+                </Link>
+              ))}
+
+            </nav>
+
+          </div>
+        </>
+      )}
+
+
+      {/* =========================
+          MENU ANIMATIONS
+      ========================= */}
+
+      <style>
+        {`
+          @keyframes shilpiMenuOverlayIn {
+            from {
+              opacity: 0;
+            }
+
+            to {
+              opacity: 1;
+            }
+          }
+
+          @keyframes shilpiMenuSlideIn {
+            from {
+              opacity: 0;
+              transform: translateX(100%);
+            }
+
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+        `}
+      </style>
+    </>
   );
 }
 

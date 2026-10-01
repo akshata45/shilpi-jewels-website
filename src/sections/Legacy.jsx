@@ -386,7 +386,7 @@ function Legacy() {
 
           {/* STORY LINK */}
 
-          <a
+          {/* <a
             href="#story"
             style={styles.link}
           >
@@ -395,7 +395,7 @@ function Legacy() {
             <span style={styles.arrow}>
               ⟶
             </span>
-          </a>
+          </a> */}
 
         </div>
       </div>

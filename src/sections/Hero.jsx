@@ -338,19 +338,11 @@ content: {
           {/* CTA */}
 
           <a
-            href="#collections"
+            href="/collection"
             style={styles.link}
           >
             Discover the Collection
           </a>
-
-          {/* COUNTER */}
-
-          <div style={styles.counter}>
-            <span>01</span>
-            <span>/</span>
-            <span>05</span>
-          </div>
 
         </div>
 
