@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import twentyTwoBanner from "../assets/images/22kt_banner.jpg";
-import twentyTwoGold from "../assets/images/22kt-gold.png";
+import twentyTwoGold from "../assets/images/twentyTwoGold.png";
 import twentyTwoCraft from "../assets/images/22kt-craftsmanship.png";
 import twentyTwoBridal from "../assets/images/22kt-bridal.png";
 import twentyTwoDaily from "../assets/images/promise-jewellery.png";

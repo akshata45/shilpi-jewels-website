@@ -5,6 +5,9 @@ import eighteenRing from "../assets/images/18kt-ring.png";
 import eighteenEarrings from "../assets/images/collection-2.jpg";
 import eighteenPendant from "../assets/images/18kt-pendant.png";
 import eighteenDiamond from "../assets/images/18kt-diamond.png";
+import eighteenBangle from "../assets/images/eighteenBangle.png";
+import eighteenMenBracelet from "../assets/images/eighteenMenBracelet.png";
+import collection5 from "../assets/images/collection-5.jpg";
 
 /* =========================================================
    RESPONSIVE HOOK
@@ -995,19 +998,19 @@ function EighteenKTPage() {
       image: eighteenEarrings,
     },
 
-    {
-      title: "Pendants",
-      text:
-        "18KT gold pendants lend themselves to elegant forms, delicate detailing and designs made for effortless everyday styling.",
-      image: eighteenPendant,
-    },
+{
+  title: "Bangles",
+  text:
+    "18KT gold bangles bring together elegant forms, refined detailing and timeless designs made for effortless everyday styling.",
+  image: eighteenBangle,
+},
 
-    {
-      title: "Diamond Jewellery",
-      text:
-        "The balance of purity and durability makes 18KT gold a popular choice for diamond and stone-set jewellery, especially where detailed settings are desired.",
-      image: eighteenDiamond,
-    },
+{
+  title: "Men's Bracelets",
+  text:
+    "18KT gold men's bracelets bring together bold forms, refined detailing and a timeless character designed for confident everyday styling.",
+  image: eighteenMenBracelet,
+},
   ];
 
   const hallmarkPoints = [
@@ -1473,7 +1476,7 @@ function EighteenKTPage() {
           >
 
             <img
-              src={eighteenDiamond}
+              src={collection5}
               alt="18KT diamond jewellery"
               style={styles.philosophyImage}
             />

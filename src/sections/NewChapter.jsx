@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import newChapterImage from "../assets/images/new-chapter.jpg";
+import newChapterImage from "../assets/images/new-chapter.png";
 
 /* =========================
    RESPONSIVE HOOK

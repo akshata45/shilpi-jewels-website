@@ -40,14 +40,23 @@ function CollectionCard({
   label,
   style,
   titleStyle,
+  onImageClick,
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <a
-      href="#collections"
+    <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onImageClick(image, label)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onImageClick(image, label);
+        }
+      }}
       style={{
         position: "relative",
 
@@ -65,12 +74,17 @@ function CollectionCard({
 
         backgroundColor: "#eee8dc",
 
+        cursor: "zoom-in",
+
+        outline: "none",
+
         ...style,
       }}
     >
       <img
         src={image}
         alt={`${label} jewellery collection`}
+        draggable="false"
         style={{
           position: "absolute",
           inset: 0,
@@ -128,12 +142,246 @@ function CollectionCard({
 
           color: "#272361",
 
+          pointerEvents: "none",
+
           ...titleStyle,
         }}
       >
         {label}
       </h3>
-    </a>
+    </div>
+  );
+}
+
+/* =========================
+   IMAGE LIGHTBOX
+========================= */
+
+function ImageLightbox({
+  image,
+  label,
+  onClose,
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Small delay allows the opening animation to run smoothly
+    const timer = requestAnimationFrame(() => {
+      setIsVisible(true);
+    });
+
+    return () => cancelAnimationFrame(timer);
+  }, []);
+
+  /* =========================
+     ESC KEY
+  ========================= */
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  });
+
+  /* =========================
+     PREVENT BACKGROUND SCROLL
+  ========================= */
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
+  /* =========================
+     SMOOTH CLOSE
+  ========================= */
+
+  const handleClose = () => {
+    setIsVisible(false);
+
+    setTimeout(() => {
+      onClose();
+    }, 350);
+  };
+
+  /* =========================
+     STYLES
+  ========================= */
+
+  const overlayStyle = {
+    position: "fixed",
+
+    inset: 0,
+
+    zIndex: 9999,
+
+    display: "flex",
+
+    alignItems: "center",
+    justifyContent: "center",
+
+    padding: "30px",
+
+    boxSizing: "border-box",
+
+    backgroundColor: isVisible
+      ? "rgba(20, 18, 30, 0.88)"
+      : "rgba(20, 18, 30, 0)",
+
+    backdropFilter: isVisible
+      ? "blur(8px)"
+      : "blur(0px)",
+
+    WebkitBackdropFilter: isVisible
+      ? "blur(8px)"
+      : "blur(0px)",
+
+    transition:
+      "background-color 0.35s ease, backdrop-filter 0.35s ease, -webkit-backdrop-filter 0.35s ease",
+  };
+
+  const imageWrapperStyle = {
+    position: "relative",
+
+    maxWidth: "95vw",
+    maxHeight: "90vh",
+
+    display: "flex",
+
+    alignItems: "center",
+    justifyContent: "center",
+
+    transform: isVisible
+      ? "scale(1)"
+      : "scale(0.88)",
+
+    opacity: isVisible ? 1 : 0,
+
+    transition:
+      "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease",
+
+    willChange: "transform, opacity",
+  };
+
+  const imageStyle = {
+    display: "block",
+
+    maxWidth: "95vw",
+    maxHeight: "90vh",
+
+    width: "auto",
+    height: "auto",
+
+    objectFit: "contain",
+
+    userSelect: "none",
+    WebkitUserDrag: "none",
+
+    boxShadow:
+      "0 25px 80px rgba(0, 0, 0, 0.35)",
+  };
+
+  const closeButtonStyle = {
+    position: "fixed",
+
+    top: "22px",
+    right: "25px",
+
+    width: "46px",
+    height: "46px",
+
+    border: "none",
+    borderRadius: "50%",
+
+    display: "flex",
+
+    alignItems: "center",
+    justifyContent: "center",
+
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
+
+    color: "#272361",
+
+    fontSize: "30px",
+    fontWeight: 300,
+
+    lineHeight: 1,
+
+    cursor: "pointer",
+
+    zIndex: 10001,
+
+    boxShadow:
+      "0 8px 25px rgba(0, 0, 0, 0.15)",
+
+    transition:
+      "transform 0.25s ease, background-color 0.25s ease",
+
+    padding: 0,
+  };
+
+  return (
+    <div
+      style={overlayStyle}
+      onClick={handleClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${label} jewellery collection`}
+    >
+      {/* =========================
+          CLOSE BUTTON
+      ========================= */}
+
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleClose();
+        }}
+        aria-label="Close image"
+        style={closeButtonStyle}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "rotate(90deg) scale(1.05)";
+          e.currentTarget.style.backgroundColor = "#ffffff";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "rotate(0deg) scale(1)";
+          e.currentTarget.style.backgroundColor =
+            "rgba(255, 255, 255, 0.95)";
+        }}
+      >
+        ×
+      </button>
+
+      {/* =========================
+          IMAGE
+      ========================= */}
+
+      <div
+        style={imageWrapperStyle}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={image}
+          alt={`${label} jewellery collection enlarged`}
+          draggable="false"
+          style={imageStyle}
+        />
+      </div>
+    </div>
   );
 }
 
@@ -148,6 +396,27 @@ function Collections() {
     "(min-width: 601px) and (max-width: 1200px)"
   );
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  /* =========================
+     OPEN LIGHTBOX
+  ========================= */
+
+  const handleImageClick = (image, label) => {
+    setSelectedImage({
+      image,
+      label,
+    });
+  };
+
+  /* =========================
+     CLOSE LIGHTBOX
+  ========================= */
+
+  const handleCloseLightbox = () => {
+    setSelectedImage(null);
+  };
+
   const styles = {
     /* =========================
        SECTION
@@ -160,17 +429,6 @@ function Collections() {
         ? "40px"
         : "50px",
 
-      /*
-        IMPORTANT:
-        Same horizontal setup as Hero.
-
-        Hero uses:
-        maxWidth: 1510px
-        padding: 0 15px
-
-        Collections now follows exactly
-        the same alignment.
-      */
       padding: isMobile
         ? "0 20px"
         : isTablet
@@ -187,9 +445,6 @@ function Collections() {
     container: {
       width: "100%",
 
-      /*
-        SAME AS HERO
-      */
       maxWidth: "1510px",
 
       height: "auto",
@@ -216,27 +471,23 @@ function Collections() {
        LEFT CONTENT
     ========================= */
 
-/* =========================
-   LEFT CONTENT
-========================= */
+    content: {
+      display: "flex",
 
-content: {
-  display: "flex",
+      flexDirection: "column",
 
-  flexDirection: "column",
+      justifyContent: "center",
 
-  justifyContent: "center",
+      padding: isMobile
+        ? "45px 25px"
+        : isTablet
+          ? "50px 35px 50px 35px"
+          : "70px 15px 70px 15px",
 
-  padding: isMobile
-    ? "45px 25px"
-    : isTablet
-      ? "50px 35px 50px 35px"
-      : "70px 15px 70px 15px",
+      boxSizing: "border-box",
 
-  boxSizing: "border-box",
-
-  minWidth: 0,
-},
+      minWidth: 0,
+    },
 
     /* =========================
        HEADING
@@ -297,9 +548,7 @@ content: {
 
       width: "fit-content",
 
-      marginTop: isMobile
-        ? "25px"
-        : "25px",
+      marginTop: "25px",
 
       fontFamily: '"Jost", sans-serif',
 
@@ -418,100 +667,119 @@ content: {
   };
 
   return (
-    <section style={styles.section}>
+    <>
+      <section style={styles.section}>
 
-      <div style={styles.container}>
+        <div style={styles.container}>
 
-        {/* =========================
-            LEFT CONTENT
-        ========================= */}
+          {/* =========================
+              LEFT CONTENT
+          ========================= */}
 
-        <div style={styles.content}>
+          <div style={styles.content}>
 
-          <h2 style={styles.heading}>
-            The
-            <br />
-            Collections
-          </h2>
+            <h2 style={styles.heading}>
+              The
+              <br />
+              Collections
+            </h2>
 
-          <p style={styles.description}>
-            A curated expression
-            <br />
-            of Indian jewellery,
-            <br />
-            crafted in yellow gold and
-            <br />
-            shaped by tradition, artistry
-            <br />
-            and contemporary design.
-          </p>
+            <p style={styles.description}>
+              A curated expression
+              <br />
+              of Indian jewellery,
+              <br />
+              crafted in yellow gold and
+              <br />
+              shaped by tradition, artistry
+              <br />
+              and contemporary design.
+            </p>
 
-          {/* <a
-            href="#collections"
-            style={styles.link}
-          >
-            <span>
-              Explore All Collections
-            </span>
+            {/* <a
+              href="#collections"
+              style={styles.link}
+            >
+              <span>
+                Explore All Collections
+              </span>
 
-            <span style={styles.arrow}>
-              ⟶
-            </span>
-          </a> */}
+              <span style={styles.arrow}>
+                ⟶
+              </span>
+            </a> */}
+
+          </div>
+
+          {/* =========================
+              RIGHT IMAGE GRID
+          ========================= */}
+
+          <div style={styles.imageGrid}>
+
+            {/* LARGE LEFT IMAGE */}
+
+            <CollectionCard
+              image={bombayImage}
+              label="Bombay"
+              style={styles.bombay}
+              onImageClick={handleImageClick}
+            />
+
+            {/* TOP MIDDLE */}
+
+            <CollectionCard
+              image={antiqueImage}
+              label="Antique"
+              style={styles.antique}
+              onImageClick={handleImageClick}
+            />
+
+            {/* TOP RIGHT */}
+
+            <CollectionCard
+              image={kolkataImage}
+              label="Kolkata"
+              style={styles.kolkata}
+              onImageClick={handleImageClick}
+            />
+
+            {/* BOTTOM MIDDLE */}
+
+            <CollectionCard
+              image={templeImage}
+              label="Temple"
+              style={styles.temple}
+              onImageClick={handleImageClick}
+            />
+
+            {/* BOTTOM RIGHT */}
+
+            <CollectionCard
+              image={fusionImage}
+              label="Fusion"
+              style={styles.fusion}
+              onImageClick={handleImageClick}
+            />
+
+          </div>
 
         </div>
 
-        {/* =========================
-            RIGHT IMAGE GRID
-        ========================= */}
+      </section>
 
-        <div style={styles.imageGrid}>
+      {/* =========================
+          IMAGE LIGHTBOX
+      ========================= */}
 
-          {/* LARGE LEFT IMAGE */}
-
-          <CollectionCard
-            image={bombayImage}
-            label="Bombay"
-            style={styles.bombay}
-          />
-
-          {/* TOP MIDDLE */}
-
-          <CollectionCard
-            image={antiqueImage}
-            label="Antique"
-            style={styles.antique}
-          />
-
-          {/* TOP RIGHT */}
-
-          <CollectionCard
-            image={kolkataImage}
-            label="Kolkata"
-            style={styles.kolkata}
-          />
-
-          {/* BOTTOM MIDDLE */}
-
-          <CollectionCard
-            image={templeImage}
-            label="Temple"
-            style={styles.temple}
-          />
-
-          {/* BOTTOM RIGHT */}
-
-          <CollectionCard
-            image={fusionImage}
-            label="Fusion"
-            style={styles.fusion}
-          />
-
-        </div>
-
-      </div>
-
-    </section>
+      {selectedImage && (
+        <ImageLightbox
+          image={selectedImage.image}
+          label={selectedImage.label}
+          onClose={handleCloseLightbox}
+        />
+      )}
+    </>
   );
 }
 

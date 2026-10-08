@@ -53,10 +53,10 @@ function App() {
           path="/collection"
           element={
             <>
-
+<Header />
 
               <CollectionPage />
-          
+          <Footer />
 
               <ScrollButtons />
             </>

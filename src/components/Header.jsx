@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 
 import logo from "../assets/images/shilpi-logo.png";
 
-
 /* =========================
    NAVIGATION ITEMS
 ========================= */
@@ -214,7 +213,10 @@ function Header() {
       background:
         "linear-gradient(90deg, #ffffff 0%, #ffffff 28%, #faf9ff 55%, #f3f1ff 100%)",
 
-      position: "relative",
+      /* STICKY HEADER */
+      position: "sticky",
+
+      top: 0,
 
       zIndex: 1000,
 
@@ -664,6 +666,7 @@ function Header() {
               alt="Shilpi Jewels"
               style={styles.logo}
             />
+          
           </Link>
 
 
@@ -744,6 +747,7 @@ function Header() {
 
       {menuOpen && (
         <>
+
           {/* =========================
               OUTSIDE OVERLAY
           ========================= */}
@@ -825,6 +829,7 @@ function Header() {
             </nav>
 
           </div>
+
         </>
       )}
 
