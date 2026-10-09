@@ -3,7 +3,7 @@ import bombayImage from "../assets/images/bombay.jpg";
 import antiqueImage from "../assets/images/antique.jpg";
 import kolkataImage from "../assets/images/kolkata.jpg";
 import templeImage from "../assets/images/temple.jpg";
-import fusionImage from "../assets/images/fusion.jpg";
+import fusionImage from "../assets/images/fusion.png";
 
 /* =========================
    RESPONSIVE HOOK
