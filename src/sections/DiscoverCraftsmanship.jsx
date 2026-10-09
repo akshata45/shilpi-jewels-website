@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import necklaceImage from "../assets/images/necklaces.jpg";
 import longNecklaceImage from "../assets/images/long-necklaces.jpg";
 import chokersImage from "../assets/images/chokers.jpg";
-import banglesImage from "../assets/images/bangles.jpg";
+import banglesImage from "../assets/images/bangles.jpeg";
 import earringsImage from "../assets/images/earrings.jpg";
 
 /* =========================
