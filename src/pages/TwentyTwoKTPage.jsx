@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
 import twentyTwoBanner from "../assets/images/22kt_banner.jpg";
-import twentyTwoGold from "../assets/images/twentyTwoGold.png";
-import twentyTwoCraft from "../assets/images/22kt-craftsmanship.png";
+import twentyTwoGold from "../assets/images/twentyTwoGold.jpeg";
+import twentyTwoCraft from "../assets/images/22kt-craftsmanship.jpeg";
 import twentyTwoBridal from "../assets/images/22kt-bridal.png";
 import twentyTwoDaily from "../assets/images/promise-jewellery.png";
 import twentyTwoDesign from "../assets/images/22kt-design.png";
 import twentyTwoCare from "../assets/images/22kt-care.png";
-import bangles from "../assets/images/bangles.png";
-import earrings from "../assets/images/earings.png";
+import bangles from "../assets/images/bangles.jpeg";
+import earrings from "../assets/images/earings.jpeg";
 import chokers from "../assets/images/chokers.jpg";
 
 /* =========================================================

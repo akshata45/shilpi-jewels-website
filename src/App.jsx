@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
+import ScrollToTop from "./components/ScrollToTop";
 import ScrollButtons from "./components/ScrollButtons";
 
 import Collections from "./sections/Collections";
@@ -30,6 +30,7 @@ import CraftsmanshipPage from "./pages/CraftsmanshipPage";
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
 
       <Routes>
 

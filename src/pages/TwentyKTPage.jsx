@@ -12,9 +12,7 @@ import twentyKTCraft from "../assets/images/gold_meets.png";
 
 function useMediaQuery(query) {
   const [matches, setMatches] = useState(() =>
-    typeof window !== "undefined"
-      ? window.matchMedia(query).matches
-      : false
+    typeof window !== "undefined" ? window.matchMedia(query).matches : false,
   );
 
   useEffect(() => {
@@ -45,9 +43,7 @@ function useMediaQuery(query) {
 function TwentyKTPage() {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
-  const isTablet = useMediaQuery(
-    "(min-width: 601px) and (max-width: 1200px)"
-  );
+  const isTablet = useMediaQuery("(min-width: 601px) and (max-width: 1200px)");
 
   /* =======================================================
      STYLES
@@ -73,11 +69,7 @@ function TwentyKTPage() {
     hero: {
       width: "100%",
 
-      minHeight: isMobile
-        ? "500px"
-        : isTablet
-          ? "570px"
-          : "650px",
+      minHeight: isMobile ? "500px" : isTablet ? "570px" : "650px",
 
       position: "relative",
 
@@ -126,11 +118,7 @@ function TwentyKTPage() {
     },
 
     heroContent: {
-      maxWidth: isMobile
-        ? "100%"
-        : isTablet
-          ? "680px"
-          : "760px",
+      maxWidth: isMobile ? "100%" : isTablet ? "680px" : "760px",
 
       paddingTop: isMobile ? "25px" : "10px",
     },
@@ -164,14 +152,9 @@ function TwentyKTPage() {
     heroHeading: {
       margin: 0,
 
-      fontFamily:
-        '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+      fontFamily: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
 
-      fontSize: isMobile
-        ? "44px"
-        : isTablet
-          ? "60px"
-          : "78px",
+      fontSize: isMobile ? "44px" : isTablet ? "60px" : "78px",
 
       lineHeight: 1.05,
 
@@ -191,9 +174,7 @@ function TwentyKTPage() {
     },
 
     heroText: {
-      margin: isMobile
-        ? "22px 0 0"
-        : "28px 0 0",
+      margin: isMobile ? "22px 0 0" : "28px 0 0",
 
       maxWidth: "650px",
 
@@ -231,11 +212,7 @@ function TwentyKTPage() {
     introSection: {
       width: "100%",
 
-      padding: isMobile
-        ? "70px 22px"
-        : isTablet
-          ? "85px 40px"
-          : "115px 60px",
+      padding: isMobile ? "70px 22px" : isTablet ? "85px 40px" : "115px 60px",
 
       background: "#ffffff",
 
@@ -281,14 +258,9 @@ function TwentyKTPage() {
     introTitle: {
       margin: 0,
 
-      fontFamily:
-        '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+      fontFamily: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
 
-      fontSize: isMobile
-        ? "35px"
-        : isTablet
-          ? "45px"
-          : "58px",
+      fontSize: isMobile ? "35px" : isTablet ? "45px" : "58px",
 
       lineHeight: 1.2,
 
@@ -304,9 +276,7 @@ function TwentyKTPage() {
     },
 
     introText: {
-      margin: isMobile
-        ? "24px auto 0"
-        : "30px auto 0",
+      margin: isMobile ? "24px auto 0" : "30px auto 0",
 
       maxWidth: "850px",
 
@@ -348,15 +318,9 @@ function TwentyKTPage() {
 
       display: "grid",
 
-      gridTemplateColumns: isMobile
-        ? "1fr"
-        : "0.9fr 1.1fr",
+      gridTemplateColumns: isMobile ? "1fr" : "0.9fr 1.1fr",
 
-      gap: isMobile
-        ? "40px"
-        : isTablet
-          ? "55px"
-          : "90px",
+      gap: isMobile ? "40px" : isTablet ? "55px" : "90px",
 
       alignItems: "center",
     },
@@ -364,11 +328,7 @@ function TwentyKTPage() {
     purityImageWrapper: {
       width: "100%",
 
-      height: isMobile
-        ? "390px"
-        : isTablet
-          ? "470px"
-          : "580px",
+      height: isMobile ? "390px" : isTablet ? "470px" : "580px",
 
       overflow: "hidden",
 
@@ -392,11 +352,7 @@ function TwentyKTPage() {
     },
 
     purityContent: {
-      padding: isMobile
-        ? "0"
-        : isTablet
-          ? "0 10px"
-          : "0 25px",
+      padding: isMobile ? "0" : isTablet ? "0 10px" : "0 25px",
 
       boxSizing: "border-box",
     },
@@ -404,14 +360,9 @@ function TwentyKTPage() {
     purityTitle: {
       margin: 0,
 
-      fontFamily:
-        '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+      fontFamily: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
 
-      fontSize: isMobile
-        ? "38px"
-        : isTablet
-          ? "48px"
-          : "60px",
+      fontSize: isMobile ? "38px" : isTablet ? "48px" : "60px",
 
       lineHeight: 1.15,
 
@@ -427,9 +378,7 @@ function TwentyKTPage() {
     },
 
     purityText: {
-      margin: isMobile
-        ? "23px 0 0"
-        : "30px 0 0",
+      margin: isMobile ? "23px 0 0" : "30px 0 0",
 
       maxWidth: "650px",
 
@@ -447,8 +396,7 @@ function TwentyKTPage() {
     purityNumber: {
       marginTop: isMobile ? "30px" : "38px",
 
-      fontFamily:
-        '"Playfair Display", Georgia, serif',
+      fontFamily: '"Playfair Display", Georgia, serif',
 
       fontSize: isMobile ? "48px" : "62px",
 
@@ -480,11 +428,7 @@ function TwentyKTPage() {
     informationSection: {
       width: "100%",
 
-      padding: isMobile
-        ? "65px 20px"
-        : isTablet
-          ? "80px 35px"
-          : "100px 60px",
+      padding: isMobile ? "65px 20px" : isTablet ? "80px 35px" : "100px 60px",
 
       background: "#f8f6f1",
 
@@ -512,9 +456,7 @@ function TwentyKTPage() {
     informationCard: {
       minHeight: isMobile ? "220px" : "260px",
 
-      padding: isMobile
-        ? "30px 25px"
-        : "40px 32px",
+      padding: isMobile ? "30px 25px" : "40px 32px",
 
       background: "#ffffff",
 
@@ -530,13 +472,11 @@ function TwentyKTPage() {
 
       textAlign: "center",
 
-      transition:
-        "transform 0.35s ease, box-shadow 0.35s ease",
+      transition: "transform 0.35s ease, box-shadow 0.35s ease",
     },
 
     informationNumber: {
-      fontFamily:
-        '"Playfair Display", Georgia, serif',
+      fontFamily: '"Playfair Display", Georgia, serif',
 
       fontSize: isMobile ? "18px" : "21px",
 
@@ -550,8 +490,7 @@ function TwentyKTPage() {
     informationTitle: {
       margin: 0,
 
-      fontFamily:
-        '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+      fontFamily: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
 
       fontSize: isMobile ? "26px" : "30px",
 
@@ -593,11 +532,7 @@ function TwentyKTPage() {
     designSection: {
       width: "100%",
 
-      padding: isMobile
-        ? "75px 20px"
-        : isTablet
-          ? "90px 35px"
-          : "120px 60px",
+      padding: isMobile ? "75px 20px" : isTablet ? "90px 35px" : "120px 60px",
 
       background: "#ffffff",
 
@@ -613,15 +548,9 @@ function TwentyKTPage() {
 
       display: "grid",
 
-      gridTemplateColumns: isMobile
-        ? "1fr"
-        : "1.1fr 0.9fr",
+      gridTemplateColumns: isMobile ? "1fr" : "1.1fr 0.9fr",
 
-      gap: isMobile
-        ? "40px"
-        : isTablet
-          ? "55px"
-          : "90px",
+      gap: isMobile ? "40px" : isTablet ? "55px" : "90px",
 
       alignItems: "center",
     },
@@ -637,11 +566,7 @@ function TwentyKTPage() {
 
       width: "100%",
 
-      height: isMobile
-        ? "400px"
-        : isTablet
-          ? "480px"
-          : "590px",
+      height: isMobile ? "400px" : isTablet ? "480px" : "590px",
 
       overflow: "hidden",
 
@@ -667,14 +592,9 @@ function TwentyKTPage() {
     designTitle: {
       margin: 0,
 
-      fontFamily:
-        '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+      fontFamily: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
 
-      fontSize: isMobile
-        ? "38px"
-        : isTablet
-          ? "48px"
-          : "60px",
+      fontSize: isMobile ? "38px" : isTablet ? "48px" : "60px",
 
       lineHeight: 1.15,
 
@@ -690,9 +610,7 @@ function TwentyKTPage() {
     },
 
     designText: {
-      margin: isMobile
-        ? "22px 0 0"
-        : "28px 0 0",
+      margin: isMobile ? "22px 0 0" : "28px 0 0",
 
       maxWidth: "620px",
 
@@ -708,9 +626,7 @@ function TwentyKTPage() {
     },
 
     designPoints: {
-      margin: isMobile
-        ? "28px 0 0"
-        : "35px 0 0",
+      margin: isMobile ? "28px 0 0" : "35px 0 0",
 
       padding: 0,
 
@@ -776,15 +692,9 @@ function TwentyKTPage() {
 
       display: "grid",
 
-      gridTemplateColumns: isMobile
-        ? "1fr"
-        : "1fr 1fr",
+      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
 
-      gap: isMobile
-        ? "40px"
-        : isTablet
-          ? "55px"
-          : "85px",
+      gap: isMobile ? "40px" : isTablet ? "55px" : "85px",
 
       alignItems: "center",
     },
@@ -792,11 +702,7 @@ function TwentyKTPage() {
     craftImageWrapper: {
       width: "100%",
 
-      height: isMobile
-        ? "380px"
-        : isTablet
-          ? "470px"
-          : "570px",
+      height: isMobile ? "380px" : isTablet ? "470px" : "570px",
 
       overflow: "hidden",
 
@@ -822,24 +728,15 @@ function TwentyKTPage() {
     craftContent: {
       boxSizing: "border-box",
 
-      padding: isMobile
-        ? "0"
-        : isTablet
-          ? "0 10px"
-          : "0 20px",
+      padding: isMobile ? "0" : isTablet ? "0 10px" : "0 20px",
     },
 
     craftTitle: {
       margin: 0,
 
-      fontFamily:
-        '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+      fontFamily: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
 
-      fontSize: isMobile
-        ? "37px"
-        : isTablet
-          ? "47px"
-          : "58px",
+      fontSize: isMobile ? "37px" : isTablet ? "47px" : "58px",
 
       lineHeight: 1.15,
 
@@ -855,9 +752,7 @@ function TwentyKTPage() {
     },
 
     craftText: {
-      margin: isMobile
-        ? "22px 0 0"
-        : "28px 0 0",
+      margin: isMobile ? "22px 0 0" : "28px 0 0",
 
       maxWidth: "600px",
 
@@ -879,11 +774,7 @@ function TwentyKTPage() {
     hallmarkSection: {
       width: "100%",
 
-      padding: isMobile
-        ? "70px 25px"
-        : isTablet
-          ? "85px 40px"
-          : "105px 60px",
+      padding: isMobile ? "70px 25px" : isTablet ? "85px 40px" : "105px 60px",
 
       background: "#29255d",
 
@@ -929,14 +820,9 @@ function TwentyKTPage() {
     hallmarkTitle: {
       margin: 0,
 
-      fontFamily:
-        '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+      fontFamily: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
 
-      fontSize: isMobile
-        ? "34px"
-        : isTablet
-          ? "43px"
-          : "54px",
+      fontSize: isMobile ? "34px" : isTablet ? "43px" : "54px",
 
       lineHeight: 1.2,
 
@@ -952,9 +838,7 @@ function TwentyKTPage() {
     },
 
     hallmarkText: {
-      margin: isMobile
-        ? "23px auto 0"
-        : "30px auto 0",
+      margin: isMobile ? "23px auto 0" : "30px auto 0",
 
       maxWidth: "760px",
 
@@ -970,9 +854,7 @@ function TwentyKTPage() {
     },
 
     hallmarkBadge: {
-      margin: isMobile
-        ? "35px auto 0"
-        : "45px auto 0",
+      margin: isMobile ? "35px auto 0" : "45px auto 0",
 
       width: isMobile ? "115px" : "135px",
 
@@ -994,8 +876,7 @@ function TwentyKTPage() {
     },
 
     hallmarkBadgeMain: {
-      fontFamily:
-        '"Playfair Display", Georgia, serif',
+      fontFamily: '"Playfair Display", Georgia, serif',
 
       fontSize: isMobile ? "28px" : "34px",
 
@@ -1023,9 +904,7 @@ function TwentyKTPage() {
     finalSection: {
       width: "100%",
 
-      padding: isMobile
-        ? "70px 25px 80px"
-        : "95px 40px 110px",
+      padding: isMobile ? "70px 25px 80px" : "95px 40px 110px",
 
       background: "#f8f6f1",
 
@@ -1043,14 +922,9 @@ function TwentyKTPage() {
     finalTitle: {
       margin: 0,
 
-      fontFamily:
-        '"Playfair Display", "Cormorant Garamond", Georgia, serif',
+      fontFamily: '"Playfair Display", "Cormorant Garamond", Georgia, serif',
 
-      fontSize: isMobile
-        ? "31px"
-        : isTablet
-          ? "40px"
-          : "50px",
+      fontSize: isMobile ? "31px" : isTablet ? "40px" : "50px",
 
       lineHeight: 1.3,
 
@@ -1086,129 +960,92 @@ function TwentyKTPage() {
      INFORMATION DATA
   ======================================================= */
 
-  const informationCards = [
-    {
-      number: "01",
-      title: "20K Gold",
-      text:
-        "20K gold contains approximately 83.3% pure gold by mass, with the remaining portion made up of alloying metals.",
-    },
-    {
-      number: "02",
-      title: "833 Fineness",
-      text:
-        "The recognised fineness associated with 20K gold is 833, representing approximately 833 parts of gold per 1,000 parts of the alloy.",
-    },
-    {
-      number: "03",
-      title: "A Distinct Balance",
-      text:
-        "With more alloy content than 22K gold, 20K can offer a different balance of gold content, colour, strength and design possibilities.",
-    },
-  ];
-
+const informationCards = [
+  {
+    number: "PURITY",
+    title: "20K Gold",
+    text: "20K gold contains approximately 83.3% pure gold by mass, with the remaining portion made up of alloying metals.",
+  },
+  {
+    number: "ELEGANCE",
+    title: "Golden Brilliance",
+    text: "Discover the natural warmth and rich golden glow that make 20K gold a distinctive choice for fine jewellery.",
+  },
+  {
+    number: "CRAFTSMANSHIP",
+    title: "A Distinct Balance",
+    text: "With more alloy content than 22K gold, 20K can offer a different balance of gold content, colour, strength and design possibilities.",
+  },
+];
   /* =======================================================
      JSX
   ======================================================= */
 
   return (
     <main style={styles.page}>
-
       {/* =================================================
           HERO
       ================================================= */}
 
-      <section
-        style={styles.hero}
-        aria-label="Shilpi Jewels 20KT Gold"
-      >
-
+      <section style={styles.hero} aria-label="Shilpi Jewels 20KT Gold">
         <div style={styles.heroOverlay} />
 
         <div style={styles.heroInner}>
-
           <div style={styles.heroContent}>
-
-
-
             <div style={styles.heroGoldLine} />
 
             <h1 style={styles.heroHeading}>
               The Beauty of
               <br />
-
-              <span style={styles.heroHeadingItalic}>
-                20KT Gold
-              </span>
+              <span style={styles.heroHeadingItalic}>20KT Gold</span>
             </h1>
 
             <p style={styles.heroText}>
-              A distinctive gold standard for jewellery
-              that brings together substantial gold purity,
-              considered design and the versatility of
+              A distinctive gold standard for jewellery that brings together
+              substantial gold purity, considered design and the versatility of
               contemporary craftsmanship.
             </p>
-
           </div>
-
         </div>
 
         <div style={styles.heroBottomLine} />
-
       </section>
-
 
       {/* =================================================
           INTRODUCTION
       ================================================= */}
 
       <section style={styles.introSection}>
-
         <div style={styles.introContainer}>
-
-          <p style={styles.sectionLabel}>
-            UNDERSTANDING 20KT GOLD
-          </p>
+          <p style={styles.sectionLabel}>UNDERSTANDING 20KT GOLD</p>
 
           <div style={styles.goldLineCenter} />
 
           <h2 style={styles.introTitle}>
-            Gold With{" "}
-            <span style={styles.introItalic}>
-              Substance
-            </span>
+            Gold With <span style={styles.introItalic}>Substance</span>
           </h2>
 
           <p style={styles.introText}>
-            20K gold represents a carefully balanced gold
-            alloy containing approximately 83.3% gold.
-            It sits between the higher gold content of 22K
-            and the lower gold content of 18K, offering
-            a distinct material character for jewellery
-            design. In India, 20K corresponds to
-            833 fineness under the BIS gold jewellery
-            fineness standards.
+            20K gold represents a carefully balanced gold alloy containing
+            approximately 83.3% gold. It sits between the higher gold content of
+            22K and the lower gold content of 18K, offering a distinct material
+            character for jewellery design. In India, 20K corresponds to 833
+            fineness under the BIS gold jewellery fineness standards.
           </p>
-
         </div>
-
       </section>
-
 
       {/* =================================================
           PURITY FEATURE
       ================================================= */}
 
       <section style={styles.puritySection}>
-
         <div style={styles.purityContainer}>
-
           <div
             style={styles.purityImageWrapper}
             onMouseEnter={(event) => {
               if (!isMobile) {
-                const image =
-                  event.currentTarget.querySelector("img");
+                const image = event.currentTarget.querySelector("img");
 
                 if (image) {
                   image.style.transform = "scale(1.035)";
@@ -1217,8 +1054,7 @@ function TwentyKTPage() {
             }}
             onMouseLeave={(event) => {
               if (!isMobile) {
-                const image =
-                  event.currentTarget.querySelector("img");
+                const image = event.currentTarget.querySelector("img");
 
                 if (image) {
                   image.style.transform = "scale(1)";
@@ -1226,21 +1062,15 @@ function TwentyKTPage() {
               }
             }}
           >
-
             <img
               src={twentyKTGold}
               alt="20KT gold jewellery"
               style={styles.purityImage}
             />
-
           </div>
 
-
           <div style={styles.purityContent}>
-
-            <p style={styles.sectionLabel}>
-              GOLD FINENESS
-            </p>
+            <p style={styles.sectionLabel}>GOLD FINENESS</p>
 
             <div
               style={{
@@ -1251,111 +1081,73 @@ function TwentyKTPage() {
             />
 
             <h2 style={styles.purityTitle}>
-              83.3% Gold,
+              Pure Gold,
               <br />
-
-              <span style={styles.purityItalic}>
-                Beautifully Balanced
-              </span>
+              <span style={styles.purityItalic}>Timeless Beauty</span>
             </h2>
 
             <p style={styles.purityText}>
-              20K gold contains approximately 83.3% pure
-              gold. The remaining portion consists of
-              alloying metals that influence the physical
-              characteristics of the finished jewellery.
-              This composition gives designers another
-              option when balancing gold content with
-              structure, detailing and everyday wear
-              requirements.
+              20K gold contains approximately 83.3% pure gold. The remaining
+              portion consists of alloying metals that influence the physical
+              characteristics of the finished jewellery. This composition gives
+              designers another option when balancing gold content with
+              structure, detailing and everyday wear requirements.
             </p>
 
-            <div style={styles.purityNumber}>
-              833
-            </div>
 
             <p style={styles.purityCaption}>
               Fineness associated with 20K gold
             </p>
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* =================================================
           KEY INFORMATION
       ================================================= */}
 
       <section style={styles.informationSection}>
-
         <div style={styles.informationContainer}>
-
           {informationCards.map((item) => (
-
             <article
               key={item.number}
               style={styles.informationCard}
-
               onMouseEnter={(event) => {
                 if (!isMobile) {
-                  event.currentTarget.style.transform =
-                    "translateY(-7px)";
+                  event.currentTarget.style.transform = "translateY(-7px)";
 
                   event.currentTarget.style.boxShadow =
                     "0 18px 40px rgba(39,37,90,0.09)";
                 }
               }}
-
               onMouseLeave={(event) => {
                 if (!isMobile) {
-                  event.currentTarget.style.transform =
-                    "translateY(0)";
+                  event.currentTarget.style.transform = "translateY(0)";
 
-                  event.currentTarget.style.boxShadow =
-                    "none";
+                  event.currentTarget.style.boxShadow = "none";
                 }
               }}
             >
+              <div style={styles.informationNumber}>{item.number}</div>
 
-              <div style={styles.informationNumber}>
-                {item.number}
-              </div>
-
-              <h3 style={styles.informationTitle}>
-                {item.title}
-              </h3>
+              <h3 style={styles.informationTitle}>{item.title}</h3>
 
               <div style={styles.informationLine} />
 
-              <p style={styles.informationText}>
-                {item.text}
-              </p>
-
+              <p style={styles.informationText}>{item.text}</p>
             </article>
-
           ))}
-
         </div>
-
       </section>
-
 
       {/* =================================================
           DESIGN SECTION
       ================================================= */}
 
       <section style={styles.designSection}>
-
         <div style={styles.designContainer}>
-
           <div style={styles.designContent}>
-
-            <p style={styles.sectionLabel}>
-              DESIGN POSSIBILITIES
-            </p>
+            <p style={styles.sectionLabel}>DESIGN POSSIBILITIES</p>
 
             <div
               style={{
@@ -1368,23 +1160,17 @@ function TwentyKTPage() {
             <h2 style={styles.designTitle}>
               Crafted for
               <br />
-
-              <span style={styles.designItalic}>
-                Individual Expression
-              </span>
+              <span style={styles.designItalic}>Individual Expression</span>
             </h2>
 
             <p style={styles.designText}>
-              Gold is not only defined by its purity.
-              Its character also comes through in the
-              way it is shaped, finished and designed.
-              20K jewellery allows a distinctive approach
-              to creating pieces with a rich gold presence
-              and carefully considered detailing.
+              Gold is not only defined by its purity. Its character also comes
+              through in the way it is shaped, finished and designed. 20K
+              jewellery allows a distinctive approach to creating pieces with a
+              rich gold presence and carefully considered detailing.
             </p>
 
             <ul style={styles.designPoints}>
-
               <li style={styles.designPoint}>
                 <span style={styles.designBullet} />
                 Refined traditional jewellery
@@ -1404,18 +1190,14 @@ function TwentyKTPage() {
                 <span style={styles.designBullet} />
                 Personal and occasion-led jewellery
               </li>
-
             </ul>
-
           </div>
-
 
           <div
             style={styles.designImageWrapper}
             onMouseEnter={(event) => {
               if (!isMobile) {
-                const image =
-                  event.currentTarget.querySelector("img");
+                const image = event.currentTarget.querySelector("img");
 
                 if (image) {
                   image.style.transform = "scale(1.035)";
@@ -1424,8 +1206,7 @@ function TwentyKTPage() {
             }}
             onMouseLeave={(event) => {
               if (!isMobile) {
-                const image =
-                  event.currentTarget.querySelector("img");
+                const image = event.currentTarget.querySelector("img");
 
                 if (image) {
                   image.style.transform = "scale(1)";
@@ -1433,34 +1214,26 @@ function TwentyKTPage() {
               }
             }}
           >
-
             <img
               src={twentyKTJewellery}
               alt="20KT gold jewellery collection"
               style={styles.designImage}
             />
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* =================================================
           CRAFTSMANSHIP SECTION
       ================================================= */}
 
       <section style={styles.craftsmanshipSection}>
-
         <div style={styles.craftsmanshipContainer}>
-
           <div
             style={styles.craftImageWrapper}
             onMouseEnter={(event) => {
               if (!isMobile) {
-                const image =
-                  event.currentTarget.querySelector("img");
+                const image = event.currentTarget.querySelector("img");
 
                 if (image) {
                   image.style.transform = "scale(1.035)";
@@ -1469,8 +1242,7 @@ function TwentyKTPage() {
             }}
             onMouseLeave={(event) => {
               if (!isMobile) {
-                const image =
-                  event.currentTarget.querySelector("img");
+                const image = event.currentTarget.querySelector("img");
 
                 if (image) {
                   image.style.transform = "scale(1)";
@@ -1478,21 +1250,15 @@ function TwentyKTPage() {
               }
             }}
           >
-
             <img
               src={twentyKTCraft}
               alt="20KT jewellery craftsmanship"
               style={styles.craftImage}
             />
-
           </div>
 
-
           <div style={styles.craftContent}>
-
-            <p style={styles.sectionLabel}>
-              THE CRAFT
-            </p>
+            <p style={styles.sectionLabel}>THE CRAFT</p>
 
             <div
               style={{
@@ -1505,33 +1271,23 @@ function TwentyKTPage() {
             <h2 style={styles.craftTitle}>
               Where Gold Meets
               <br />
-
-              <span style={styles.craftItalic}>
-                Craftsmanship
-              </span>
+              <span style={styles.craftItalic}>Craftsmanship</span>
             </h2>
 
             <p style={styles.craftText}>
-              The character of fine jewellery comes from
-              more than the metal itself. Proportion,
-              finishing, detailing and the discipline of
-              craftsmanship all contribute to the final
-              expression.
+              The character of fine jewellery comes from more than the metal
+              itself. Proportion, finishing, detailing and the discipline of
+              craftsmanship all contribute to the final expression.
             </p>
 
             <p style={styles.craftText}>
-              At Shilpi Jewels, the focus remains on
-              creating pieces that feel considered,
-              elegant and meaningful, while respecting
-              the enduring traditions of Indian jewellery.
+              At Shilpi Jewels, the focus remains on creating pieces that feel
+              considered, elegant and meaningful, while respecting the enduring
+              traditions of Indian jewellery.
             </p>
-
           </div>
-
         </div>
-
       </section>
-
 
       {/* =================================================
           DESIGN IMAGE / PATTERN SHOWCASE
@@ -1549,22 +1305,16 @@ function TwentyKTPage() {
           boxSizing: "border-box",
         }}
       >
-
         <div
           style={{
             width: "100%",
             maxWidth: "1380px",
             margin: "0 auto",
-            height: isMobile
-              ? "360px"
-              : isTablet
-                ? "430px"
-                : "520px",
+            height: isMobile ? "360px" : isTablet ? "430px" : "520px",
             overflow: "hidden",
             background: "#f3f1ec",
           }}
         >
-
           <img
             src={twentyKTDesign}
             alt="20KT gold jewellery design details"
@@ -1576,89 +1326,59 @@ function TwentyKTPage() {
               objectPosition: "center",
             }}
           />
-
         </div>
-
       </section>
-
 
       {/* =================================================
           HALLMARK / PURITY SECTION
       ================================================= */}
 
       <section style={styles.hallmarkSection}>
-
         <div style={styles.hallmarkContainer}>
-
-          <p style={styles.hallmarkLabel}>
-            PURITY & ASSURANCE
-          </p>
+          <p style={styles.hallmarkLabel}>PURITY & ASSURANCE</p>
 
           <div style={styles.hallmarkLine} />
 
           <h2 style={styles.hallmarkTitle}>
             Know Your Gold.
             <br />
-
-            <span style={styles.hallmarkItalic}>
-              Choose With Confidence.
-            </span>
+            <span style={styles.hallmarkItalic}>Choose With Confidence.</span>
           </h2>
 
           <p style={styles.hallmarkText}>
-            For hallmarked gold jewellery, BIS identifies
-            purity through the prescribed hallmarking
-            system. 20K gold corresponds to 833 fineness.
-            The current hallmark framework includes the
-            BIS Standard Mark, purity/fineness and a
-            six-digit HUID for hallmarked jewellery.
+            For hallmarked gold jewellery, BIS identifies purity through the
+            prescribed hallmarking system. 20K gold corresponds to 833 fineness.
+            The current hallmark framework includes the BIS Standard Mark,
+            purity/fineness and a six-digit HUID for hallmarked jewellery.
           </p>
 
           <div style={styles.hallmarkBadge}>
+            <div style={styles.hallmarkBadgeMain}>20K</div>
 
-            <div style={styles.hallmarkBadgeMain}>
-              20K
-            </div>
-
-            <div style={styles.hallmarkBadgeSmall}>
-              833 FINENESS
-            </div>
-
+            <div style={styles.hallmarkBadgeSmall}>833 FINENESS</div>
           </div>
-
         </div>
-
       </section>
-
 
       {/* =================================================
           FINAL BRAND STATEMENT
       ================================================= */}
 
       <section style={styles.finalSection}>
-
         <div style={styles.finalInner}>
-
           <h2 style={styles.finalTitle}>
             Gold with character.
             <br />
-
-            <span style={styles.finalItalic}>
-              Jewellery with meaning.
-            </span>
+            <span style={styles.finalItalic}>Jewellery with meaning.</span>
           </h2>
 
           <p style={styles.finalText}>
-            From refined everyday expressions to jewellery
-            created for meaningful occasions, 20K gold offers
-            another distinctive way to experience the warmth,
-            richness and enduring beauty of gold.
+            From refined everyday expressions to jewellery created for
+            meaningful occasions, 20K gold offers another distinctive way to
+            experience the warmth, richness and enduring beauty of gold.
           </p>
-
         </div>
-
       </section>
-
     </main>
   );
 }

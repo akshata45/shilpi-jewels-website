@@ -48,9 +48,9 @@ function ContactPage() {
      Replace ONLY these values with your EmailJS details.
   ======================================================= */
 
-  const EMAILJS_SERVICE_ID = "service_p7dwd8u";
-  const EMAILJS_TEMPLATE_ID = "template_wf7dlb7";
-  const EMAILJS_PUBLIC_KEY = "PlmQJIcZn8PFwohaL";
+  const EMAILJS_SERVICE_ID = "service_ud31gdq";
+  const EMAILJS_TEMPLATE_ID = "template_ygwf328";
+  const EMAILJS_PUBLIC_KEY = "4JDtLsC5Jy4q5ITUc";
 
   /* =======================================================
      GOOGLE MAP EMBED

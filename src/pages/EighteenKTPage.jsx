@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
 import eighteenBanner from "../assets/images/18kt-banner.jpg";
-import eighteenRing from "../assets/images/18kt-ring.png";
+import eighteenRing from "../assets/images/18kt-ring.jpeg";
 import eighteenEarrings from "../assets/images/collection-2.jpg";
 import eighteenPendant from "../assets/images/18kt-pendant.png";
 import eighteenDiamond from "../assets/images/18kt-diamond.png";
-import eighteenBangle from "../assets/images/eighteenBangle.png";
-import eighteenMenBracelet from "../assets/images/eighteenMenBracelet.png";
+import eighteenBangle from "../assets/images/eighteenBangle.jpeg";
+import eighteenMenBracelet from "../assets/images/eighteenmangalsutra.jpeg";
 import collection5 from "../assets/images/collection-5.jpg";
 
 /* =========================================================
@@ -1006,9 +1006,9 @@ function EighteenKTPage() {
 },
 
 {
-  title: "Men's Bracelets",
+  title: "Mangalsutra",
   text:
-    "18KT gold men's bracelets bring together bold forms, refined detailing and a timeless character designed for confident everyday styling.",
+    "Gold mangalsutras blend traditional symbolism with elegant craftsmanship, creating timeless designs that beautifully complement every occasion.",
   image: eighteenMenBracelet,
 },
   ];
@@ -1081,9 +1081,7 @@ function EighteenKTPage() {
               silhouettes and detailed craftsmanship.
             </p>
 
-            <div style={styles.heroBadge}>
-              18KT · 750 Fineness
-            </div>
+
 
           </div>
 
@@ -1211,31 +1209,6 @@ function EighteenKTPage() {
               for pieces featuring diamonds, gemstones,
               delicate detailing and modern silhouettes.
             </p>
-
-
-            <div style={styles.purityFacts}>
-
-              <div style={styles.purityFact}>
-                <p style={styles.purityFactNumber}>
-                  18
-                </p>
-
-                <p style={styles.purityFactLabel}>
-                  Parts Gold
-                </p>
-              </div>
-
-              <div style={styles.purityFact}>
-                <p style={styles.purityFactNumber}>
-                  750
-                </p>
-
-                <p style={styles.purityFactLabel}>
-                  Fineness
-                </p>
-              </div>
-
-            </div>
 
           </div>
 

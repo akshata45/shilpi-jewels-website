@@ -1,5 +1,7 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 
 import logo from "../assets/images/shilpi-logo.png";
 
@@ -14,10 +16,14 @@ import linkedinIcon from "../assets/icons/linkedin.png";
 
 function useMediaQuery(query) {
   const [matches, setMatches] = useState(() =>
-    typeof window !== "undefined" ? window.matchMedia(query).matches : false,
+    typeof window !== "undefined"
+      ? window.matchMedia(query).matches
+      : false
   );
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const media = window.matchMedia(query);
 
     const update = () => setMatches(media.matches);
@@ -38,19 +44,91 @@ function useMediaQuery(query) {
 function Footer() {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
-  const isTablet = useMediaQuery("(min-width: 601px) and (max-width: 1100px)");
+  const isTablet = useMediaQuery(
+    "(min-width: 601px) and (max-width: 1100px)"
+  );
 
   const navigate = useNavigate();
   const location = useLocation();
 
   /* =========================
+     EMAILJS CONFIGURATION
+  ========================= */
+
+  const EMAILJS_SERVICE_ID = "service_ud31gdq";
+  const EMAILJS_TEMPLATE_ID = "template_ygwf328";
+  const EMAILJS_PUBLIC_KEY = "4JDtLsC5Jy4q5ITUc";
+
+  const [isSending, setIsSending] = useState(false);
+
+  const [formStatus, setFormStatus] = useState({
+    type: "",
+    message: "",
+  });
+
+  /* =========================
+     EMAILJS FORM SUBMISSION
+  ========================= */
+
+  const handleInquirySubmit = async (event) => {
+    event.preventDefault();
+
+    if (isSending) return;
+
+    // Save the form reference before the asynchronous request.
+    const form = event.currentTarget;
+
+    setIsSending(true);
+    setFormStatus({
+      type: "",
+      message: "",
+    });
+
+    try {
+      const response = await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        form,
+        {
+          publicKey: EMAILJS_PUBLIC_KEY,
+        }
+      );
+
+      console.log(
+        "EmailJS submission successful:",
+        response.status,
+        response.text
+      );
+
+      setFormStatus({
+        type: "success",
+        message: "Thank you! Your enquiry has been sent successfully.",
+      });
+
+      // Reset only after EmailJS confirms success.
+      form.reset();
+    } catch (error) {
+      // Log the actual error for debugging.
+      console.error("EmailJS footer inquiry error:", error);
+      console.error("EmailJS error status:", error?.status);
+      console.error("EmailJS error details:", error?.text);
+
+      setFormStatus({
+        type: "error",
+        message: "We could not send your enquiry. Please try again shortly.",
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  /* =========================
      LOGO → HOME FUNCTION
   ========================= */
 
-  const handleLogoClick = (e) => {
-    e.preventDefault();
+  const handleLogoClick = (event) => {
+    event.preventDefault();
 
-    /* Already on Home page */
     if (location.pathname === "/") {
       window.scrollTo({
         top: 0,
@@ -60,11 +138,10 @@ function Footer() {
       return;
     }
 
-    /* Go to Home page */
     navigate("/");
 
-    /* Wait for Home page to render, then scroll */
-    setTimeout(() => {
+    // Scroll to the top after navigation.
+    window.setTimeout(() => {
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -72,48 +149,32 @@ function Footer() {
     }, 100);
   };
 
-  const styles = {
-    /* =========================
-       MAIN FOOTER
-    ========================= */
+  /* =========================
+     FOOTER STYLES
+  ========================= */
 
+  const styles = {
     section: {
       width: "100%",
-
       marginTop: isMobile ? "35px" : isTablet ? "45px" : "55px",
-
       marginRight: 0,
       marginBottom: 0,
       marginLeft: 0,
-
       padding: 0,
-
       boxSizing: "border-box",
       overflow: "hidden",
     },
 
-    /* =========================
-       FOOTER TOP
-    ========================= */
-
     footerTop: {
       width: "100%",
-
       background:
         "linear-gradient(180deg, #f2f1ff 0%, #faf9ff 55%, #ffffff 100%)",
-
       boxSizing: "border-box",
     },
 
-    /* =========================
-       MAIN CONTAINER
-    ========================= */
-
     container: {
       width: isMobile ? "100%" : isTablet ? "94%" : "84.5%",
-
       maxWidth: "1500px",
-
       margin: "0 auto",
 
       padding: isMobile
@@ -131,497 +192,273 @@ function Footer() {
           : "1.25fr 0.92fr 1.2fr 1.2fr",
 
       columnGap: isMobile ? "0" : isTablet ? "30px" : "42px",
-
       rowGap: isMobile ? "42px" : "0",
-
       alignItems: "start",
-
       boxSizing: "border-box",
     },
-
-    /* =========================
-       COMMON COLUMN
-    ========================= */
 
     column: {
       minWidth: 0,
       boxSizing: "border-box",
     },
 
-    /* =========================
-       BRAND COLUMN
-    ========================= */
-
     brandColumn: {
       minWidth: 0,
-
       display: "flex",
-
       flexDirection: "column",
-
       alignItems: "flex-start",
-
       boxSizing: "border-box",
     },
 
-    /* =========================
-       LOGO
-    ========================= */
-
     logo: {
       width: isMobile ? "165px" : isTablet ? "170px" : "178px",
-
       height: "auto",
-
       display: "block",
-
       objectFit: "contain",
-
       margin: 0,
       padding: 0,
     },
 
-    /* =========================
-       BRAND DESCRIPTION
-    ========================= */
-
     brandDescription: {
       width: "100%",
-
       maxWidth: isMobile ? "330px" : isTablet ? "270px" : "280px",
-
       margin: isMobile ? "27px 0 0" : "28px 0 0",
-
       padding: 0,
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
-      fontSize: isMobile ? "16px" : "16px",
-
+      fontSize: "16px",
       fontWeight: 400,
-
       lineHeight: isMobile ? 1.72 : 1.68,
-
       color: "#292566",
-
       textAlign: "left",
-
       boxSizing: "border-box",
     },
 
-    /* =========================
-       SOCIAL ROW
-    ========================= */
-
     socialRow: {
       display: "flex",
-
       alignItems: "center",
-
       gap: isMobile ? "15px" : "18px",
-
       marginTop: isMobile ? "27px" : "28px",
-
       padding: 0,
     },
 
-    /* =========================
-       SOCIAL LINK
-    ========================= */
-
     socialLink: {
       width: isMobile ? "34px" : "32px",
-
       height: isMobile ? "34px" : "32px",
-
       display: "flex",
-
       alignItems: "center",
-
       justifyContent: "center",
-
       textDecoration: "none",
-
       cursor: "pointer",
-
       flexShrink: 0,
     },
-
-    /* =========================
-       SOCIAL ICON
-    ========================= */
 
     socialIcon: {
       width: "100%",
       height: "100%",
-
       display: "block",
-
       objectFit: "contain",
     },
-
-    /* =========================
-       COLUMN HEADING
-    ========================= */
 
     columnHeading: {
       margin: 0,
       padding: 0,
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
       fontSize: isMobile ? "24px" : isTablet ? "23px" : "24px",
-
       fontWeight: 500,
-
       lineHeight: 1.25,
-
       color: "#292566",
-
       textAlign: "left",
     },
 
-    /* =========================
-       QUICK LINKS
-    ========================= */
-
     quickLinks: {
       marginTop: isMobile ? "22px" : "23px",
-
       padding: 0,
-
       display: "flex",
-
       flexDirection: "column",
-
       alignItems: "flex-start",
-
       gap: isMobile ? "17px" : "15px",
     },
 
     quickLink: {
       margin: 0,
       padding: 0,
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
-      fontSize: isMobile ? "16px" : "16px",
-
+      fontSize: "16px",
       fontWeight: 400,
-
       lineHeight: 1.3,
-
       color: "#292566",
-
       textDecoration: "none",
-
       cursor: "pointer",
-
       transition: "opacity 0.25s ease",
     },
 
-    /* =========================
-       CUSTOMER CARE
-    ========================= */
-
     customerCareDescription: {
       width: "100%",
-
       maxWidth: isMobile ? "330px" : "260px",
-
       margin: isMobile ? "22px 0 0" : "24px 0 0",
-
       padding: 0,
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
-      fontSize: isMobile ? "16px" : "16px",
-
+      fontSize: "16px",
       fontWeight: 400,
-
       lineHeight: isMobile ? 1.7 : 1.72,
-
       color: "#292566",
-
       textAlign: "left",
     },
 
-    /* =========================
-       CONTACT DETAILS
-    ========================= */
-
     contactDetails: {
       width: "100%",
-
       marginTop: isMobile ? "32px" : "65px",
-
       display: "flex",
-
       flexDirection: "column",
-
       gap: isMobile ? "16px" : "13px",
-
       boxSizing: "border-box",
     },
 
     contactItem: {
       width: "100%",
-
       display: "flex",
-
       alignItems: "flex-start",
-
       gap: "10px",
-
       boxSizing: "border-box",
     },
 
     contactIconWrapper: {
       width: "18px",
       minWidth: "18px",
-
       height: "20px",
-
       display: "flex",
-
       alignItems: "center",
-
       justifyContent: "center",
-
       flexShrink: 0,
-
       marginTop: "1px",
     },
 
     contactText: {
       margin: 0,
       padding: 0,
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
-      fontSize: isMobile ? "16px" : "16px",
-
+      fontSize: "16px",
       fontWeight: 400,
-
       lineHeight: isMobile ? 1.65 : 1.7,
-
       color: "#292566",
-
       textAlign: "left",
     },
-
-    /* =========================
-       ENQUIRY HEADING
-    ========================= */
 
     enquiryHeading: {
       margin: 0,
       padding: 0,
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
       fontSize: isMobile ? "24px" : isTablet ? "23px" : "24px",
-
       fontWeight: 500,
-
       lineHeight: 1.25,
-
       color: "#292566",
-
       textAlign: "left",
     },
 
-    /* =========================
-       FORM
-    ========================= */
-
     form: {
       width: "100%",
-
       marginTop: isMobile ? "25px" : "28px",
-
       display: "flex",
-
       flexDirection: "column",
-
       gap: isMobile ? "14px" : "13px",
     },
 
-    /* =========================
-       INPUT
-    ========================= */
-
     input: {
       width: "100%",
-
       height: isMobile ? "48px" : "45px",
-
       border: "1px solid #aaa9c5",
-
       borderRadius: 0,
-
       backgroundColor: "transparent",
-
       padding: isMobile ? "0 14px" : "0 13px",
-
       boxSizing: "border-box",
-
       outline: "none",
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
       fontSize: isMobile ? "16px" : "15px",
-
       fontWeight: 400,
-
       color: "#292566",
     },
-
-    /* =========================
-       TEXTAREA
-    ========================= */
 
     textarea: {
       width: "100%",
-
       height: isMobile ? "135px" : "130px",
-
       border: "1px solid #aaa9c5",
-
       borderRadius: 0,
-
       backgroundColor: "transparent",
-
       padding: isMobile ? "13px 14px" : "12px 13px",
-
       boxSizing: "border-box",
-
       outline: "none",
-
       resize: "none",
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
       fontSize: isMobile ? "16px" : "15px",
-
       fontWeight: 400,
-
       color: "#292566",
     },
 
-    /* =========================
-       SEND BUTTON
-    ========================= */
-
     button: {
       width: "100%",
-
       height: isMobile ? "47px" : "45px",
-
       margin: 0,
-
       padding: 0,
-
       border: "none",
-
       borderRadius: 0,
-
       backgroundColor: "#292566",
-
       color: "#ffffff",
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
       fontSize: isMobile ? "16px" : "15px",
-
       fontWeight: 500,
-
       letterSpacing: "0.2px",
-
       cursor: "pointer",
-
       display: "flex",
-
       alignItems: "center",
-
       justifyContent: "center",
-
       transition: "background-color 0.25s ease",
     },
 
-    /* =========================
-       COPYRIGHT BAR
-    ========================= */
-
     copyright: {
       width: "100%",
-
       minHeight: isMobile ? "72px" : "76px",
-
       backgroundColor: "#292566",
-
       display: "flex",
-
       alignItems: "center",
-
       justifyContent: "center",
-
       padding: isMobile ? "18px 20px" : "18px 25px",
-
       boxSizing: "border-box",
     },
 
     copyrightText: {
       margin: 0,
       padding: 0,
-
       fontFamily: "Arial, Helvetica, sans-serif",
-
       fontSize: isMobile ? "13px" : "15px",
-
       fontWeight: 400,
-
       lineHeight: 1.6,
-
       letterSpacing: "0.2px",
-
       color: "#ffffff",
-
       textAlign: "center",
     },
 
     divider: {
       display: "inline-block",
-
       margin: isMobile ? "0 8px" : "0 12px",
-
       opacity: 0.45,
     },
 
     viaVistasLink: {
-      color: "#ffffff",
-
+      color: "#C3D82D",
       textDecoration: "none",
-
       fontWeight: 500,
-
       letterSpacing: "0.4px",
-
       transition: "opacity 0.25s ease",
     },
   };
 
   return (
     <footer style={styles.section}>
-      {/* =========================
-          FOOTER TOP
-      ========================= */}
+      {/* FOOTER TOP */}
 
       <div style={styles.footerTop}>
         <div style={styles.container}>
-          {/* =========================
-              BRAND
-          ========================= */}
+          {/* BRAND COLUMN */}
 
           <div
             style={{
@@ -629,10 +466,6 @@ function Footer() {
               ...styles.brandColumn,
             }}
           >
-            {/* =========================
-                CLICKABLE FOOTER LOGO
-            ========================= */}
-
             <a
               href="/"
               onClick={handleLogoClick}
@@ -644,7 +477,11 @@ function Footer() {
                 cursor: "pointer",
               }}
             >
-              <img src={logo} alt="Shilpi Jewels" style={styles.logo} />
+              <img
+                src={logo}
+                alt="Shilpi Jewels"
+                style={styles.logo}
+              />
             </a>
 
             <p style={styles.brandDescription}>
@@ -659,48 +496,68 @@ function Footer() {
               and excellence.
             </p>
 
-            {/* =========================
-                SOCIAL ICONS
-            ========================= */}
+            {/* SOCIAL ICONS */}
 
             <div style={styles.socialRow}>
               <a
                 href="https://www.facebook.com/ShilpiJewelsMumbai/"
                 aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={styles.socialLink}
               >
-                <img src={facebookIcon} alt="" style={styles.socialIcon} />
+                <img
+                  src={facebookIcon}
+                  alt=""
+                  style={styles.socialIcon}
+                />
               </a>
 
               <a
                 href="https://www.instagram.com/shilpi_jewels/?hl=en"
                 aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={styles.socialLink}
               >
-                <img src={instagramIcon} alt="" style={styles.socialIcon} />
+                <img
+                  src={instagramIcon}
+                  alt=""
+                  style={styles.socialIcon}
+                />
               </a>
 
               <a
                 href="https://www.youtube.com/watch?v=IQMTWFrXzyA"
                 aria-label="YouTube"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={styles.socialLink}
               >
-                <img src={youtubeIcon} alt="" style={styles.socialIcon} />
+                <img
+                  src={youtubeIcon}
+                  alt=""
+                  style={styles.socialIcon}
+                />
               </a>
 
               <a
                 href="https://in.linkedin.com/company/shilpi-jewels"
                 aria-label="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={styles.socialLink}
               >
-                <img src={linkedinIcon} alt="" style={styles.socialIcon} />
+                <img
+                  src={linkedinIcon}
+                  alt=""
+                  style={styles.socialIcon}
+                />
               </a>
             </div>
           </div>
 
-          {/* =========================
-              QUICK LINKS
-          ========================= */}
+          {/* QUICK LINKS */}
 
           <div style={styles.column}>
             <h3 style={styles.columnHeading}>Quick Links</h3>
@@ -728,9 +585,7 @@ function Footer() {
             </nav>
           </div>
 
-          {/* =========================
-              CUSTOMER CARE
-          ========================= */}
+          {/* CUSTOMER CARE */}
 
           <div style={styles.column}>
             <h3 style={styles.columnHeading}>Customer Care</h3>
@@ -745,9 +600,7 @@ function Footer() {
               </a>
             </nav>
 
-            {/* =========================
-                CONTACT DETAILS
-            ========================= */}
+            {/* CONTACT DETAILS */}
 
             <div style={styles.contactDetails}>
               {/* LOCATION */}
@@ -809,7 +662,9 @@ function Footer() {
                   </svg>
                 </div>
 
-                <p style={styles.contactText}>+91 22 4066 0700</p>
+                <p style={styles.contactText}>
+                  +91 22 4066 0700
+                </p>
               </div>
 
               {/* EMAIL */}
@@ -841,54 +696,116 @@ function Footer() {
                   </svg>
                 </div>
 
-                <p style={styles.contactText}>info@shilpijewels.com</p>
+                <p style={styles.contactText}>
+                  info@shilpijewels.com
+                </p>
               </div>
             </div>
           </div>
 
-          {/* =========================
-              SEND ENQUIRY
-          ========================= */}
+          {/* SEND ENQUIRY */}
 
           <div style={styles.column}>
             <h3 style={styles.enquiryHeading}>Send Enquiry</h3>
 
-            <form style={styles.form}>
-              <input type="text" placeholder="Your Name" style={styles.input} />
+            <form
+              style={styles.form}
+              onSubmit={handleInquirySubmit}
+            >
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                style={styles.input}
+                autoComplete="name"
+                required
+                disabled={isSending}
+              />
 
               <input
                 type="email"
+                name="email"
                 placeholder="Your Email"
                 style={styles.input}
+                autoComplete="email"
+                required
+                disabled={isSending}
               />
 
-              <textarea placeholder="Your Message" style={styles.textarea} />
+              <input
+                type="hidden"
+                name="phone"
+                value="Not provided in footer form"
+                readOnly
+              />
 
-              <button type="submit" style={styles.button}>
-                SEND MESSAGE
+              <input
+                type="hidden"
+                name="interest"
+                value="Footer Website Inquiry"
+                readOnly
+              />
+
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                style={styles.textarea}
+                required
+                disabled={isSending}
+              />
+
+              <button
+                type="submit"
+                style={{
+                  ...styles.button,
+                  opacity: isSending ? 0.7 : 1,
+                  cursor: isSending ? "not-allowed" : "pointer",
+                }}
+                disabled={isSending}
+              >
+                {isSending ? "SENDING..." : "SEND MESSAGE"}
               </button>
+
+              {/* FORM STATUS */}
+
+              {formStatus.message && (
+                <p
+                  role="status"
+                  aria-live="polite"
+                  style={{
+                    margin: "2px 0 0",
+                    fontFamily: "Arial, Helvetica, sans-serif",
+                    fontSize: isMobile ? "14px" : "13px",
+                    lineHeight: 1.6,
+                    color:
+                      formStatus.type === "success"
+                        ? "#52743b"
+                        : "#b42318",
+                  }}
+                >
+                  {formStatus.message}
+                </p>
+              )}
             </form>
           </div>
         </div>
       </div>
 
-      {/* =========================
-          COPYRIGHT BAR
-      ========================= */}
+      {/* COPYRIGHT BAR */}
 
       <div style={styles.copyright}>
         <p style={styles.copyrightText}>
           2026 Shilpi Jewels. All rights reserved.
+
           <span style={styles.divider}>|</span>
+
           Designed & Developed by{" "}
+
           <a
             href="https://www.viavistas.co.in/"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              ...styles.viaVistasLink,
-              color: "#C3D82D",
-            }}
+            style={styles.viaVistasLink}
           >
             ViaVistas
           </a>
